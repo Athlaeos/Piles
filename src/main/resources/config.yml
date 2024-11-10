@@ -1,0 +1,20 @@
+message_invalid_command: "&cThis command does not exist"
+message_no_command_permission: "&cYou do not have permission to use this command"
+command_description_help: "&fAllows you to view all available commands and their permissions"
+command_description_create: "&fAllows you to create new pile types. It is expected you know how to edit resource packs if you want to make piles of your own"
+command_description_toggle: "&fAllows you to toggle pile placement on/off for yourself"
+message_hand_item_required: "&cYou must be holding an item in order to perform this command"
+message_invalid_type: "&c%type% is not a valid option"
+message_already_exists: "&c%name% already exists!"
+message_data_mismatch: "&cMismatched custom model data quantity! You must enter %amount% custom model data entries to match your pile's max size"
+message_invalid_number: "&cInvalid number"
+message_pile_placement_enabled: "&aPile placement enabled!"
+message_pile_placement_disabled: "&aPile placement disabled!"
+
+requirement_description_pile_simple: "Works with any item made of %type%"
+requirement_description_pile_exact: "Works only with %item%"
+requirement_description_pile_cmd: "Works with any item made of %type% with custom model data %data%"
+
+default_pile_limit: 32 # Default max pile quantity. May be increased with /piles grant command
+pile_protection: false # If true, piles may only be interacted with by the player who placed them or operators. If false, piles are vulnerable to anyone with permission to break blocks
+

@@ -1,0 +1,28 @@
+name: Piles
+version: ${project.version}
+main: me.athlaeos.piles.Piles
+author: Athlaeos
+api-version: 1.19
+load: POSTWORLD
+softdepend: []
+
+commands:
+  piles:
+    description: "Command to access Piles' features"
+
+permissions:
+  piles.place:
+    default: true
+    description: "Allows players to place piles of their own"
+  piles.create:
+    default: op
+    description: "Allows the creation of new pile types"
+  piles.delete:
+    default: op
+    description: "Allows the removal of pile types"
+  piles.extra:
+    default: false
+    description: "Allows the placement of additional (or reduced) piles. Players must have both piles.extra as well as piles.extra.# (with the hashtag representing the number of extra piles they are allowed to place)"
+  piles.toggle:
+    default: true
+    description: "Allows the player to use the /piles toggle command, which may toggle the player's pile placement on or off"
