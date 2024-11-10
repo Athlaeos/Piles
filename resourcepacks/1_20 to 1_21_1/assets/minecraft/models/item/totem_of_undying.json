@@ -1,0 +1,24 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/totem_of_undying"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_totems/totem_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_totems/totem_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_totems/totem_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_totems/totem_4"
+        }
+    ]
+}

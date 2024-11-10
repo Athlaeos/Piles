@@ -1,0 +1,28 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/ender_pearl"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_ender_pearls/pearl_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_ender_pearls/pearl_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_ender_pearls/pearl_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_ender_pearls/pearl_4"
+        },
+        {
+            "predicate": {"custom_model_data": 1882604},
+            "model": "item/pile_ender_pearls/pearl_5"
+        }
+    ]
+}

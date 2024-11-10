@@ -1,0 +1,88 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/gold_ingot"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_4"
+        },
+        {
+            "predicate": {"custom_model_data": 1882604},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_5"
+        },
+        {
+            "predicate": {"custom_model_data": 1882605},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_6"
+        },
+        {
+            "predicate": {"custom_model_data": 1882606},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_7"
+        },
+        {
+            "predicate": {"custom_model_data": 1882607},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_8"
+        },
+        {
+            "predicate": {"custom_model_data": 1882608},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_9"
+        },
+        {
+            "predicate": {"custom_model_data": 1882609},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_10"
+        },
+        {
+            "predicate": {"custom_model_data": 1882610},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_11"
+        },
+        {
+            "predicate": {"custom_model_data": 1882611},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_12"
+        },
+        {
+            "predicate": {"custom_model_data": 1882612},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_13"
+        },
+        {
+            "predicate": {"custom_model_data": 1882613},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_14"
+        },
+        {
+            "predicate": {"custom_model_data": 1882614},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_15"
+        },
+        {
+            "predicate": {"custom_model_data": 1882615},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_16"
+        },
+        {
+            "predicate": {"custom_model_data": 1882616},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_17"
+        },
+        {
+            "predicate": {"custom_model_data": 1882617},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_18"
+        },
+        {
+            "predicate": {"custom_model_data": 1882618},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_19"
+        },
+        {
+            "predicate": {"custom_model_data": 1882619},
+            "model": "item/pile_gold_ingots/stacked_gold_ingot_20"
+        }
+    ]
+}

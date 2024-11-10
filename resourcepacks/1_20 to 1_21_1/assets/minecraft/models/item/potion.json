@@ -1,0 +1,25 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/potion_overlay",
+        "layer1": "item/potion"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_potions/potion_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_potions/potion_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_potions/potion_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_potions/potion_4"
+        }
+    ]
+}

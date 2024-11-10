@@ -1,0 +1,52 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "heaps/iron_coin2",
+		"3": "heaps/iron_coin",
+		"particle": "heaps/iron_coin2"
+	},
+	"elements": [
+		{
+			"name": "coin1",
+			"from": [6, 0, 3],
+			"to": [8, 1, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 0, 3]},
+			"faces": {
+				"north": {"uv": [2, 0, 4, 1], "texture": "#3"},
+				"east": {"uv": [2, 1, 4, 2], "texture": "#3"},
+				"south": {"uv": [2, 2, 4, 3], "texture": "#3"},
+				"west": {"uv": [2, 3, 4, 4], "texture": "#3"},
+				"up": {"uv": [2, 2, 0, 0], "texture": "#3"},
+				"down": {"uv": [2, 2, 0, 4], "texture": "#3"}
+			}
+		},
+		{
+			"name": "coin2",
+			"from": [11, 0, 9],
+			"to": [13, 1, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 0, 9]},
+			"faces": {
+				"north": {"uv": [2, 0, 4, 1], "texture": "#1"},
+				"east": {"uv": [2, 1, 4, 2], "texture": "#1"},
+				"south": {"uv": [2, 2, 4, 3], "texture": "#1"},
+				"west": {"uv": [2, 3, 4, 4], "texture": "#1"},
+				"up": {"uv": [2, 2, 0, 0], "texture": "#1"},
+				"down": {"uv": [2, 2, 0, 4], "texture": "#1"}
+			}
+		},
+		{
+			"name": "coin1",
+			"from": [4, 0, 11],
+			"to": [6, 1, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 11]},
+			"faces": {
+				"north": {"uv": [2, 0, 4, 1], "texture": "#3"},
+				"east": {"uv": [2, 1, 4, 2], "texture": "#3"},
+				"south": {"uv": [2, 2, 4, 3], "texture": "#3"},
+				"west": {"uv": [2, 3, 4, 4], "texture": "#3"},
+				"up": {"uv": [2, 2, 0, 0], "texture": "#3"},
+				"down": {"uv": [2, 2, 0, 4], "texture": "#3"}
+			}
+		}
+	]
+}

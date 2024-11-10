@@ -1,0 +1,264 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/gold_nugget"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_coins/coin_pile_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_coins/coin_pile_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_coins/coin_pile_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_coins/coin_pile_4"
+        },
+        {
+            "predicate": {"custom_model_data": 1882604},
+            "model": "item/pile_coins/coin_pile_5"
+        },
+        {
+            "predicate": {"custom_model_data": 1882605},
+            "model": "item/pile_coins/coin_pile_6"
+        },
+        {
+            "predicate": {"custom_model_data": 1882606},
+            "model": "item/pile_coins/coin_pile_7"
+        },
+        {
+            "predicate": {"custom_model_data": 1882607},
+            "model": "item/pile_coins/coin_pile_8"
+        },
+        {
+            "predicate": {"custom_model_data": 1882608},
+            "model": "item/pile_coins/coin_pile_9"
+        },
+        {
+            "predicate": {"custom_model_data": 1882609},
+            "model": "item/pile_coins/coin_pile_10"
+        },
+        {
+            "predicate": {"custom_model_data": 1882610},
+            "model": "item/pile_coins/coin_pile_11"
+        },
+        {
+            "predicate": {"custom_model_data": 1882611},
+            "model": "item/pile_coins/coin_pile_12"
+        },
+        {
+            "predicate": {"custom_model_data": 1882612},
+            "model": "item/pile_coins/coin_pile_13"
+        },
+        {
+            "predicate": {"custom_model_data": 1882613},
+            "model": "item/pile_coins/coin_pile_14"
+        },
+        {
+            "predicate": {"custom_model_data": 1882614},
+            "model": "item/pile_coins/coin_pile_15"
+        },
+        {
+            "predicate": {"custom_model_data": 1882615},
+            "model": "item/pile_coins/coin_pile_16"
+        },
+        {
+            "predicate": {"custom_model_data": 1882616},
+            "model": "item/pile_coins/coin_pile_17"
+        },
+        {
+            "predicate": {"custom_model_data": 1882617},
+            "model": "item/pile_coins/coin_pile_18"
+        },
+        {
+            "predicate": {"custom_model_data": 1882618},
+            "model": "item/pile_coins/coin_pile_19"
+        },
+        {
+            "predicate": {"custom_model_data": 1882619},
+            "model": "item/pile_coins/coin_pile_20"
+        },
+        {
+            "predicate": {"custom_model_data": 1882620},
+            "model": "item/pile_coins/coin_pile_21"
+        },
+        {
+            "predicate": {"custom_model_data": 1882621},
+            "model": "item/pile_coins/coin_pile_22"
+        },
+        {
+            "predicate": {"custom_model_data": 1882622},
+            "model": "item/pile_coins/coin_pile_23"
+        },
+        {
+            "predicate": {"custom_model_data": 1882623},
+            "model": "item/pile_coins/coin_pile_24"
+        },
+        {
+            "predicate": {"custom_model_data": 1882624},
+            "model": "item/pile_coins/coin_pile_25"
+        },
+        {
+            "predicate": {"custom_model_data": 1882625},
+            "model": "item/pile_coins/coin_pile_26"
+        },
+        {
+            "predicate": {"custom_model_data": 1882626},
+            "model": "item/pile_coins/coin_pile_27"
+        },
+        {
+            "predicate": {"custom_model_data": 1882627},
+            "model": "item/pile_coins/coin_pile_28"
+        },
+        {
+            "predicate": {"custom_model_data": 1882628},
+            "model": "item/pile_coins/coin_pile_29"
+        },
+        {
+            "predicate": {"custom_model_data": 1882629},
+            "model": "item/pile_coins/coin_pile_30"
+        },
+        {
+            "predicate": {"custom_model_data": 1882630},
+            "model": "item/pile_coins/coin_pile_31"
+        },
+        {
+            "predicate": {"custom_model_data": 1882631},
+            "model": "item/pile_coins/coin_pile_32"
+        },
+        {
+            "predicate": {"custom_model_data": 1882632},
+            "model": "item/pile_coins/coin_pile_33"
+        },
+        {
+            "predicate": {"custom_model_data": 1882633},
+            "model": "item/pile_coins/coin_pile_34"
+        },
+        {
+            "predicate": {"custom_model_data": 1882634},
+            "model": "item/pile_coins/coin_pile_35"
+        },
+        {
+            "predicate": {"custom_model_data": 1882635},
+            "model": "item/pile_coins/coin_pile_36"
+        },
+        {
+            "predicate": {"custom_model_data": 1882636},
+            "model": "item/pile_coins/coin_pile_37"
+        },
+        {
+            "predicate": {"custom_model_data": 1882637},
+            "model": "item/pile_coins/coin_pile_38"
+        },
+        {
+            "predicate": {"custom_model_data": 1882638},
+            "model": "item/pile_coins/coin_pile_39"
+        },
+        {
+            "predicate": {"custom_model_data": 1882639},
+            "model": "item/pile_coins/coin_pile_40"
+        },
+        {
+            "predicate": {"custom_model_data": 1882640},
+            "model": "item/pile_coins/coin_pile_41"
+        },
+        {
+            "predicate": {"custom_model_data": 1882641},
+            "model": "item/pile_coins/coin_pile_42"
+        },
+        {
+            "predicate": {"custom_model_data": 1882642},
+            "model": "item/pile_coins/coin_pile_43"
+        },
+        {
+            "predicate": {"custom_model_data": 1882643},
+            "model": "item/pile_coins/coin_pile_44"
+        },
+        {
+            "predicate": {"custom_model_data": 1882644},
+            "model": "item/pile_coins/coin_pile_45"
+        },
+        {
+            "predicate": {"custom_model_data": 1882645},
+            "model": "item/pile_coins/coin_pile_46"
+        },
+        {
+            "predicate": {"custom_model_data": 1882646},
+            "model": "item/pile_coins/coin_pile_47"
+        },
+        {
+            "predicate": {"custom_model_data": 1882647},
+            "model": "item/pile_coins/coin_pile_48"
+        },
+        {
+            "predicate": {"custom_model_data": 1882648},
+            "model": "item/pile_coins/coin_pile_49"
+        },
+        {
+            "predicate": {"custom_model_data": 1882649},
+            "model": "item/pile_coins/coin_pile_50"
+        },
+        {
+            "predicate": {"custom_model_data": 1882650},
+            "model": "item/pile_coins/coin_pile_51"
+        },
+        {
+            "predicate": {"custom_model_data": 1882651},
+            "model": "item/pile_coins/coin_pile_52"
+        },
+        {
+            "predicate": {"custom_model_data": 1882652},
+            "model": "item/pile_coins/coin_pile_53"
+        },
+        {
+            "predicate": {"custom_model_data": 1882653},
+            "model": "item/pile_coins/coin_pile_54"
+        },
+        {
+            "predicate": {"custom_model_data": 1882654},
+            "model": "item/pile_coins/coin_pile_55"
+        },
+        {
+            "predicate": {"custom_model_data": 1882655},
+            "model": "item/pile_coins/coin_pile_56"
+        },
+        {
+            "predicate": {"custom_model_data": 1882656},
+            "model": "item/pile_coins/coin_pile_57"
+        },
+        {
+            "predicate": {"custom_model_data": 1882657},
+            "model": "item/pile_coins/coin_pile_58"
+        },
+        {
+            "predicate": {"custom_model_data": 1882658},
+            "model": "item/pile_coins/coin_pile_59"
+        },
+        {
+            "predicate": {"custom_model_data": 1882659},
+            "model": "item/pile_coins/coin_pile_60"
+        },
+        {
+            "predicate": {"custom_model_data": 1882660},
+            "model": "item/pile_coins/coin_pile_61"
+        },
+        {
+            "predicate": {"custom_model_data": 1882661},
+            "model": "item/pile_coins/coin_pile_62"
+        },
+        {
+            "predicate": {"custom_model_data": 1882662},
+            "model": "item/pile_coins/coin_pile_63"
+        },
+        {
+            "predicate": {"custom_model_data": 1882663},
+            "model": "item/pile_coins/coin_pile_64"
+        }
+    ]
+}

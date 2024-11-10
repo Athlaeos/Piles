@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"3": "heaps/coin_c",
+		"particle": "heaps/coin_c2"
+	},
+	"elements": [
+		{
+			"name": "coin1",
+			"from": [7, 0, 7],
+			"to": [9, 1, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [2, 0, 4, 1], "texture": "#3"},
+				"east": {"uv": [2, 1, 4, 2], "texture": "#3"},
+				"south": {"uv": [2, 2, 4, 3], "texture": "#3"},
+				"west": {"uv": [2, 3, 4, 4], "texture": "#3"},
+				"up": {"uv": [2, 2, 0, 0], "texture": "#3"},
+				"down": {"uv": [2, 2, 0, 4], "texture": "#3"}
+			}
+		}
+	]
+}

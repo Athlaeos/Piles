@@ -1,0 +1,72 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/suspicious_stew"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_4"
+        },
+        {
+            "predicate": {"custom_model_data": 1882604},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_5"
+        },
+        {
+            "predicate": {"custom_model_data": 1882605},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_6"
+        },
+        {
+            "predicate": {"custom_model_data": 1882606},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_7"
+        },
+        {
+            "predicate": {"custom_model_data": 1882607},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_8"
+        },
+        {
+            "predicate": {"custom_model_data": 1882608},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_9"
+        },
+        {
+            "predicate": {"custom_model_data": 1882609},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_10"
+        },
+        {
+            "predicate": {"custom_model_data": 1882610},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_11"
+        },
+        {
+            "predicate": {"custom_model_data": 1882611},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_12"
+        },
+        {
+            "predicate": {"custom_model_data": 1882612},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_13"
+        },
+        {
+            "predicate": {"custom_model_data": 1882613},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_14"
+        },
+        {
+            "predicate": {"custom_model_data": 1882614},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_15"
+        },
+        {
+            "predicate": {"custom_model_data": 1882615},
+            "model": "item/pile_jars/spider_eyes/spider_eyes_16"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/enchanted_book"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_books/enchanted_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_books/enchanted_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_books/enchanted_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_books/enchanted_4"
+        },
+        {
+            "predicate": {"custom_model_data": 1882604},
+            "model": "item/pile_books/enchanted_5"
+        },
+        {
+            "predicate": {"custom_model_data": 1882605},
+            "model": "item/pile_books/enchanted_6"
+        },
+        {
+            "predicate": {"custom_model_data": 1882606},
+            "model": "item/pile_books/enchanted_7"
+        },
+        {
+            "predicate": {"custom_model_data": 1882607},
+            "model": "item/pile_books/enchanted_8"
+        },
+        {
+            "predicate": {"custom_model_data": 1882608},
+            "model": "item/pile_books/enchanted_9"
+        }
+    ]
+}

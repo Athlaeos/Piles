@@ -1,0 +1,72 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/beetroot"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_beets/beet_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_beets/beet_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_beets/beet_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_beets/beet_4"
+        },
+        {
+            "predicate": {"custom_model_data": 1882604},
+            "model": "item/pile_beets/beet_5"
+        },
+        {
+            "predicate": {"custom_model_data": 1882605},
+            "model": "item/pile_beets/beet_6"
+        },
+        {
+            "predicate": {"custom_model_data": 1882606},
+            "model": "item/pile_beets/beet_7"
+        },
+        {
+            "predicate": {"custom_model_data": 1882607},
+            "model": "item/pile_beets/beet_8"
+        },
+        {
+            "predicate": {"custom_model_data": 1882608},
+            "model": "item/pile_beets/beet_9"
+        },
+        {
+            "predicate": {"custom_model_data": 1882609},
+            "model": "item/pile_beets/beet_10"
+        },
+        {
+            "predicate": {"custom_model_data": 1882610},
+            "model": "item/pile_beets/beet_11"
+        },
+        {
+            "predicate": {"custom_model_data": 1882611},
+            "model": "item/pile_beets/beet_12"
+        },
+        {
+            "predicate": {"custom_model_data": 1882612},
+            "model": "item/pile_beets/beet_13"
+        },
+        {
+            "predicate": {"custom_model_data": 1882613},
+            "model": "item/pile_beets/beet_14"
+        },
+        {
+            "predicate": {"custom_model_data": 1882614},
+            "model": "item/pile_beets/beet_15"
+        },
+        {
+            "predicate": {"custom_model_data": 1882615},
+            "model": "item/pile_beets/beet_16"
+        }
+    ]
+}

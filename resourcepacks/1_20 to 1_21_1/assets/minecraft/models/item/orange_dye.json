@@ -1,0 +1,104 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/orange_dye"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_granite/stacked_granite_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_granite/stacked_granite_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_granite/stacked_granite_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_granite/stacked_granite_4"
+        },
+        {
+            "predicate": {"custom_model_data": 1882604},
+            "model": "item/pile_granite/stacked_granite_5"
+        },
+        {
+            "predicate": {"custom_model_data": 1882605},
+            "model": "item/pile_granite/stacked_granite_6"
+        },
+        {
+            "predicate": {"custom_model_data": 1882606},
+            "model": "item/pile_granite/stacked_granite_7"
+        },
+        {
+            "predicate": {"custom_model_data": 1882607},
+            "model": "item/pile_granite/stacked_granite_8"
+        },
+        {
+            "predicate": {"custom_model_data": 1882608},
+            "model": "item/pile_granite/stacked_granite_9"
+        },
+        {
+            "predicate": {"custom_model_data": 1882609},
+            "model": "item/pile_granite/stacked_granite_10"
+        },
+        {
+            "predicate": {"custom_model_data": 1882610},
+            "model": "item/pile_granite/stacked_granite_11"
+        },
+        {
+            "predicate": {"custom_model_data": 1882611},
+            "model": "item/pile_granite/stacked_granite_12"
+        },
+        {
+            "predicate": {"custom_model_data": 1882612},
+            "model": "item/pile_granite/stacked_granite_13"
+        },
+        {
+            "predicate": {"custom_model_data": 1882613},
+            "model": "item/pile_granite/stacked_granite_14"
+        },
+        {
+            "predicate": {"custom_model_data": 1882614},
+            "model": "item/pile_granite/stacked_granite_15"
+        },
+        {
+            "predicate": {"custom_model_data": 1882615},
+            "model": "item/pile_granite/stacked_granite_16"
+        },
+        {
+            "predicate": {"custom_model_data": 1882616},
+            "model": "item/pile_granite/stacked_granite_17"
+        },
+        {
+            "predicate": {"custom_model_data": 1882617},
+            "model": "item/pile_granite/stacked_granite_18"
+        },
+        {
+            "predicate": {"custom_model_data": 1882618},
+            "model": "item/pile_granite/stacked_granite_19"
+        },
+        {
+            "predicate": {"custom_model_data": 1882619},
+            "model": "item/pile_granite/stacked_granite_20"
+        },
+        {
+            "predicate": {"custom_model_data": 1882620},
+            "model": "item/pile_granite/stacked_granite_21"
+        },
+        {
+            "predicate": {"custom_model_data": 1882621},
+            "model": "item/pile_granite/stacked_granite_22"
+        },
+        {
+            "predicate": {"custom_model_data": 1882622},
+            "model": "item/pile_granite/stacked_granite_23"
+        },
+        {
+            "predicate": {"custom_model_data": 1882623},
+            "model": "item/pile_granite/stacked_granite_24"
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "item/bone_meal"
+    },
+    "overrides": [
+        {
+            "predicate": {"custom_model_data": 1882600},
+            "model": "item/pile_diorite/stacked_diorite_1"
+        },
+        {
+            "predicate": {"custom_model_data": 1882601},
+            "model": "item/pile_diorite/stacked_diorite_2"
+        },
+        {
+            "predicate": {"custom_model_data": 1882602},
+            "model": "item/pile_diorite/stacked_diorite_3"
+        },
+        {
+            "predicate": {"custom_model_data": 1882603},
+            "model": "item/pile_diorite/stacked_diorite_4"
+        },
+        {
+            "predicate": {"custom_model_data": 1882604},
+            "model": "item/pile_diorite/stacked_diorite_5"
+        },
+        {
+            "predicate": {"custom_model_data": 1882605},
+            "model": "item/pile_diorite/stacked_diorite_6"
+        },
+        {
+            "predicate": {"custom_model_data": 1882606},
+            "model": "item/pile_diorite/stacked_diorite_7"
+        },
+        {
+            "predicate": {"custom_model_data": 1882607},
+            "model": "item/pile_diorite/stacked_diorite_8"
+        },
+        {
+            "predicate": {"custom_model_data": 1882608},
+            "model": "item/pile_diorite/stacked_diorite_9"
+        },
+        {
+            "predicate": {"custom_model_data": 1882609},
+            "model": "item/pile_diorite/stacked_diorite_10"
+        },
+        {
+            "predicate": {"custom_model_data": 1882610},
+            "model": "item/pile_diorite/stacked_diorite_11"
+        },
+        {
+            "predicate": {"custom_model_data": 1882611},
+            "model": "item/pile_diorite/stacked_diorite_12"
+        },
+        {
+            "predicate": {"custom_model_data": 1882612},
+            "model": "item/pile_diorite/stacked_diorite_13"
+        },
+        {
+            "predicate": {"custom_model_data": 1882613},
+            "model": "item/pile_diorite/stacked_diorite_14"
+        },
+        {
+            "predicate": {"custom_model_data": 1882614},
+            "model": "item/pile_diorite/stacked_diorite_15"
+        },
+        {
+            "predicate": {"custom_model_data": 1882615},
+            "model": "item/pile_diorite/stacked_diorite_16"
+        },
+        {
+            "predicate": {"custom_model_data": 1882616},
+            "model": "item/pile_diorite/stacked_diorite_17"
+        },
+        {
+            "predicate": {"custom_model_data": 1882617},
+            "model": "item/pile_diorite/stacked_diorite_18"
+        },
+        {
+            "predicate": {"custom_model_data": 1882618},
+            "model": "item/pile_diorite/stacked_diorite_19"
+        },
+        {
+            "predicate": {"custom_model_data": 1882619},
+            "model": "item/pile_diorite/stacked_diorite_20"
+        },
+        {
+            "predicate": {"custom_model_data": 1882620},
+            "model": "item/pile_diorite/stacked_diorite_21"
+        },
+        {
+            "predicate": {"custom_model_data": 1882621},
+            "model": "item/pile_diorite/stacked_diorite_22"
+        },
+        {
+            "predicate": {"custom_model_data": 1882622},
+            "model": "item/pile_diorite/stacked_diorite_23"
+        },
+        {
+            "predicate": {"custom_model_data": 1882623},
+            "model": "item/pile_diorite/stacked_diorite_24"
+        }
+    ]
+}
