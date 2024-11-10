@@ -28,7 +28,7 @@ public class Piles extends JavaPlugin {
     @Override
     public void onEnable() {
         pluginConfig = saveAndUpdateConfig("config.yml");
-        save("");
+        save("piletypes.json");
         new CommandManager();
         PileRegistry.load();
 

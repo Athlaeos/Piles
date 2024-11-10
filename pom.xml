@@ -13,7 +13,7 @@
     <properties>
         <spigotVersion>1.21</spigotVersion>
         <javaVersion>17</javaVersion>
-        <testServerPath>C:\Users\Job\Desktop\paper 1.19\plugins</testServerPath>
+        <testServerPath>C:\Users\Job\Desktop\DEVSERVER 1.21 NEW\plugins</testServerPath>
         <shadedPackage>me.athlaeos.piles.shaded</shadedPackage>
 
         <!-- Do not change the following properties -->
