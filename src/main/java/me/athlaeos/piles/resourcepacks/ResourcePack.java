@@ -19,8 +19,8 @@ public class ResourcePack {
      */
     private static File pack;
     private static final Map<MinecraftVersion, ResourcePackDetails> resourcePacks = new HashMap<>();
-    private static final String defaultPackLink = "https://github.com/user-attachments/files/17707876/Piles.zip";
-    private static final String defaultSha1 = "3263848442be091120c0f10bc08018fd067e6328";
+    private static final String defaultPackLink = "https://github.com/user-attachments/files/17712809/Piles.zip";
+    private static final String defaultSha1 = "2bdeb7005e3bad3f9b801da983da7e2ef1fcdae2";
     static {
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_26, null, null);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_25, null, null);
