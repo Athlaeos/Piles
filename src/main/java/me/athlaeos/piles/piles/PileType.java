@@ -13,11 +13,11 @@ public abstract class PileType {
     private final Material displayItem;
     private final int[] customModelData;
     private final boolean solid;
-    private final Sound placementSound;
-    private final Sound takeSound;
-    private final Sound destroySound;
+    private final String placementSound;
+    private final String takeSound;
+    private final String destroySound;
 
-    protected PileType(String type, int maxSize, Material displayItem, boolean solid, Sound placementSound, Sound takeSound, Sound destroySound, int... customModelData){
+    protected PileType(String type, int maxSize, Material displayItem, boolean solid, String placementSound, String takeSound, String destroySound, int... customModelData){
         this.type = type;
         this.maxSize = maxSize;
         this.displayItem = displayItem;
@@ -38,9 +38,9 @@ public abstract class PileType {
     public Material getDisplayItem() { return displayItem; }
     public int[] getCustomModelData() { return customModelData; }
     public boolean isSolid() { return solid; }
-    public Sound getDestroySound() { return destroySound; }
-    public Sound getPlacementSound() { return placementSound; }
-    public Sound getTakeSound() { return takeSound; }
+    public Sound getDestroySound() { return Sound.valueOf(destroySound); }
+    public Sound getPlacementSound() { return Sound.valueOf(placementSound); }
+    public Sound getTakeSound() { return Sound.valueOf(takeSound); }
 
     public abstract int priority();
 

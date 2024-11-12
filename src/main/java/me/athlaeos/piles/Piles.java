@@ -3,7 +3,11 @@ package me.athlaeos.piles;
 import me.athlaeos.piles.commands.CommandManager;
 import me.athlaeos.piles.config.ConfigManager;
 import me.athlaeos.piles.config.ConfigUpdater;
+import me.athlaeos.piles.hooks.PluginHook;
+import me.athlaeos.piles.hooks.RPMHook;
 import me.athlaeos.piles.listeners.PilesListener;
+import me.athlaeos.piles.resourcepacks.Host;
+import me.athlaeos.piles.resourcepacks.ResourcePack;
 import me.athlaeos.piles.utils.Utils;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,11 +15,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Piles extends JavaPlugin {
 
     private static Piles instance;
     private static YamlConfiguration pluginConfig;
+    private static final Map<Class<? extends PluginHook>, PluginHook> activeHooks = new HashMap<>();
 
     {
         instance = this;
@@ -26,11 +33,19 @@ public class Piles extends JavaPlugin {
     }
 
     @Override
+    public void onLoad(){
+        registerHook(new RPMHook());
+    }
+
+    @Override
     public void onEnable() {
         pluginConfig = saveAndUpdateConfig("config.yml");
         save("piletypes.json");
         new CommandManager();
         PileRegistry.load();
+        ResourcePack.tryStart();
+
+        for (PluginHook hook : activeHooks.values()) hook.whenPresent();
 
         getServer().getPluginManager().registerEvents(new PilesListener(), this);
     }
@@ -38,6 +53,7 @@ public class Piles extends JavaPlugin {
     @Override
     public void onDisable() {
         PileRegistry.save();
+        Host.stop();
     }
 
     public static void logInfo(String message){
@@ -83,5 +99,20 @@ public class Piles extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void registerHook(PluginHook hook){
+        if (hook.isPresent()) {
+            activeHooks.put(hook.getClass(), hook);
+            logInfo("Initialized plugin hook with " + hook.getPlugin());
+        }
+    }
+
+    public static boolean isHookFunctional(Class<? extends PluginHook> hook){
+        return activeHooks.containsKey(hook);
+    }
+    @SuppressWarnings("unchecked")
+    public static <T extends PluginHook> T getHook(Class<T> hook){
+        return (T) activeHooks.get(hook);
     }
 }

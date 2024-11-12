@@ -65,19 +65,24 @@
       <id>jeff-media-public</id>
       <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
     </repository>
+    <repository>
+      <id>magmaguy-repo-releases</id>
+      <name>MagmaGuy's Repository</name>
+      <url>https://repo.magmaguy.com/releases</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.21-R0.1-SNAPSHOT</version>
+      <version>1.21.1-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
   <properties>
-    <testServerPath>C:\Users\Job\Desktop\paper 1.19\plugins</testServerPath>
+    <testServerPath>C:\Users\Athlaeos\Desktop\Minecraft Servers\1.21.3\plugins</testServerPath>
     <javaVersion>17</javaVersion>
-    <spigotVersion>1.21</spigotVersion>
+    <spigotVersion>1.21.1</spigotVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <outputDirectory>target</outputDirectory>
     <shadedPackage>me.athlaeos.piles.shaded</shadedPackage>

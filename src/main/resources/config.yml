@@ -2,14 +2,23 @@ message_invalid_command: "&cThis command does not exist"
 message_no_command_permission: "&cYou do not have permission to use this command"
 command_description_help: "&fAllows you to view all available commands and their permissions"
 command_description_create: "&fAllows you to create new pile types. It is expected you know how to edit resource packs if you want to make piles of your own"
+command_description_delete: "&fAllows you to delete pile types. Piles of the deleted type will remain until interacted with"
 command_description_toggle: "&fAllows you to toggle pile placement on/off for yourself"
+command_description_resourcepack: "&fAllows you to download, install, or otherwise manage the Piles resource pack"
 message_hand_item_required: "&cYou must be holding an item in order to perform this command"
 message_invalid_type: "&c%type% is not a valid option"
+message_pile_deleted: "&aPile type deleted! Existing piles will break as soon as they're interacted with"
 message_already_exists: "&c%name% already exists!"
 message_data_mismatch: "&cMismatched custom model data quantity! You must enter %amount% custom model data entries to match your pile's max size"
 message_invalid_number: "&cInvalid number"
 message_pile_placement_enabled: "&aPile placement enabled!"
 message_pile_placement_disabled: "&aPile placement disabled!"
+message_pile_limit_reached: "&cMax pile limit of %amount% reached!"
+message_pile_chunk_limit_reached: "&cNo more than %amount% piles may be placed in one chunk!"
+message_player_offline: "&cPlayer not found"
+message_resourcepack_setup: "&aResource pack installed! Please restart to reflect the changes"
+message_resourcepack_failed: "&cSomething went wrong in fetching the resource pack"
+message_resourcepack_downloaded: "&aDownloaded resource pack to server files! Do keep in mind this is not the same as installing, which is done with /piles resourcepack setup"
 
 requirement_description_pile_simple: "Works with any item made of %type%"
 requirement_description_pile_exact: "Works only with %item%"
@@ -17,4 +26,8 @@ requirement_description_pile_cmd: "Works with any item made of %type% with custo
 
 default_pile_limit: 32 # Default max pile quantity. May be increased with /piles grant command
 pile_protection: false # If true, piles may only be interacted with by the player who placed them or operators. If false, piles are vulnerable to anyone with permission to break blocks
+chunk_pile_limit: 16 # Max amount of piles allowed to be placed per chunk. Excessive pile usage may result in client fps lag
 
+resourcepack_version: 1.0
+resourcepack_port: -1
+server_ip: putiphere

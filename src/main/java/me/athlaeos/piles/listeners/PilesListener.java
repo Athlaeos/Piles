@@ -30,12 +30,16 @@ import java.util.stream.Collectors;
 
 public class PilesListener implements Listener {
 
-    private float getCardinalDirection(Location direction){
-        float yaw = direction.getYaw() + 180; // getYaw is lying when it says it returns a value between 0 and 360, its actually -180 and 180
-        if (yaw < 45 || yaw >= 315) return 0; // south
-        else if (yaw < 135) return 90; // west
-        else if (yaw < 225) return 180; // north
-        else return 270; // east
+    private float get8WayDirection(Location direction){
+        float yaw = direction.getYaw() + 180;
+        if (yaw < 22.5 || yaw >= 315+22.5) return 0; // south
+        else if (yaw < 45+22.5) return 45; // southwest
+        else if (yaw < 90+22.5) return 90; // west
+        else if (yaw < 135+22.5) return 135; // northwest
+        else if (yaw < 180+22.5) return 180; // north
+        else if (yaw < 225+22.5) return 225; // northeast
+        else if (yaw < 270+22.5) return 270; // east
+        else return 315; // southeast
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -44,14 +48,14 @@ public class PilesListener implements Listener {
         RayTraceResult result = e.getPlayer().getWorld().rayTraceEntities(e.getPlayer().getEyeLocation(), e.getPlayer().getEyeLocation().getDirection(), 5, 0.3, en -> en instanceof ItemDisplay d && PileRegistry.isPile(d));
         // full destroy or placement of pile
 
-        float direction = getCardinalDirection(e.getPlayer().getEyeLocation());
+        float direction = get8WayDirection(e.getPlayer().getEyeLocation());
         Timer.setCooldown(e.getPlayer().getUniqueId(), 50, "delay_item_placement");
         if (result != null && result.getHitEntity() != null){
             // interacting with existing pile
             if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
                 ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
-                // do not trust compiler warning saying hand is hand != null is always false, it isn't and this depends on server software like papermc or purpur
                 if (canPlace(e.getPlayer(), result.getHitEntity().getLocation().getBlock(), BlockFace.UP)){
+                    // do not trust compiler warning saying hand is hand != null is always false, it isn't and this depends on server software like papermc or purpur
                     if (hand != null && !hand.getType().isAir()) {
                         if (PileRegistry.placePile(e.getPlayer(), hand, (ItemDisplay) result.getHitEntity(), direction)){
                             e.getPlayer().swingMainHand();
@@ -73,11 +77,12 @@ public class PilesListener implements Listener {
                 }
             }
         } else {
-            if (e.getClickedBlock() == null || !e.getClickedBlock().getType().isSolid()) return;
+            if (e.getClickedBlock() == null) return;
             Pile pile = PileRegistry.fromBlock(e.getClickedBlock());
             if (pile == null){
                 if (e.getBlockFace() != BlockFace.UP) return; // must be sneaking to place pile
                 Block b = e.getClickedBlock().getRelative(BlockFace.UP);
+                if (!b.getRelative(BlockFace.DOWN).getType().isSolid()) return; // block below must be solid
                 ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
                 if (e.getPlayer().isSneaking() && hand != null && !hand.getType().isAir() && canPlace(e.getPlayer(), e.getClickedBlock(), BlockFace.UP)) {
                     if (PileRegistry.placePile(e.getPlayer(), hand, b, direction)){
@@ -150,7 +155,7 @@ public class PilesListener implements Listener {
     public void onBlockForm(BlockFormEvent e){
         if (e.isCancelled()) return;
         Pile pile = PileRegistry.fromBlock(e.getBlock());
-        if (pile != null) PileRegistry.destroyPile(null, e.getBlock());
+        if (pile != null && e.getBlock().getType().isOccluding()) PileRegistry.destroyPile(null, e.getBlock());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -158,7 +163,7 @@ public class PilesListener implements Listener {
         if (e.isCancelled()) return;
         for (BlockState b : e.getBlocks()){
             Pile pile = PileRegistry.fromBlock(b.getBlock());
-            if (pile != null) PileRegistry.destroyPile(null, b.getBlock());
+            if (pile != null && b.getType().isOccluding()) PileRegistry.destroyPile(null, b.getBlock());
         }
     }
 
@@ -166,9 +171,9 @@ public class PilesListener implements Listener {
     public void onPistonMove(BlockPistonExtendEvent e){
         if (e.isCancelled()) return;
         if (e.getBlock().getBlockData() instanceof Directional d){
-            for (Block b : e.getBlocks().stream().map(b -> b.getRelative(d.getFacing().getOppositeFace())).collect(Collectors.toSet())){
+            for (Block b : e.getBlocks().stream().map(b -> b.getRelative(d.getFacing())).collect(Collectors.toSet())){
                 Pile pile = PileRegistry.fromBlock(b);
-                if (pile != null) PileRegistry.destroyPile(null, b);
+                if (pile != null && b.getType().isOccluding()) PileRegistry.destroyPile(null, b);
             }
         }
     }
@@ -179,7 +184,7 @@ public class PilesListener implements Listener {
         if (e.getBlock().getBlockData() instanceof Directional d){
             for (Block b : e.getBlocks().stream().map(b -> b.getRelative(d.getFacing().getOppositeFace())).collect(Collectors.toSet())){
                 Pile pile = PileRegistry.fromBlock(b);
-                if (pile != null) PileRegistry.destroyPile(null, b);
+                if (pile != null && b.getType().isOccluding()) PileRegistry.destroyPile(null, b);
             }
         }
     }
@@ -188,7 +193,7 @@ public class PilesListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent e){
         if (e.isCancelled()) return;
         Pile pile = PileRegistry.fromBlock(e.getBlock());
-        if (pile != null) e.setCancelled(true); // do not place blocks on piles
+        if (pile != null && e.getBlock().getType().isOccluding()) e.setCancelled(true); // do not place solid blocks on piles
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

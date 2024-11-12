@@ -54,9 +54,9 @@ public class CreatePileCommand implements Command{
             return true;
         }
         boolean solid = args[5].equalsIgnoreCase("true");
-        Sound placement = validate(args[6]);
-        Sound destroy = validate(args[7]);
-        Sound take = validate(args[8]);
+        String placement = validate(args[6]);
+        String destroy = validate(args[7]);
+        String take = validate(args[8]);
         if (placement == null){
             Utils.sendMessage(p, Piles.getPluginConfig().getString("message_invalid_type", "").replace("%type%", args[6]));
             return true;
@@ -116,9 +116,10 @@ public class CreatePileCommand implements Command{
         return new int[0];
     }
 
-    private Sound validate(String sound){
+    private String validate(String sound){
         try {
-            return Sound.valueOf(sound.toUpperCase());
+            Sound.valueOf(sound.toUpperCase());
+            return sound;
         } catch (IllegalArgumentException ignored) {
             return null;
         }

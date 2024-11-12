@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import me.athlaeos.piles.adapters.GsonAdapter;
 import me.athlaeos.piles.adapters.ItemStackGSONAdapter;
+import me.athlaeos.piles.config.ConfigManager;
 import me.athlaeos.piles.domain.Pile;
 import me.athlaeos.piles.domain.PileQuantityCounter;
 import me.athlaeos.piles.piles.ComplexPile;
@@ -15,10 +16,7 @@ import me.athlaeos.piles.piles.PileType;
 import me.athlaeos.piles.piles.SimplePile;
 import me.athlaeos.piles.domain.Pos;
 import me.athlaeos.piles.utils.Utils;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Entity;
@@ -55,17 +53,17 @@ public class PileRegistry {
     static {
         registerSelector(new PileTypeSelector() {
             @Override public String getIdentifier() { return "type_only"; }
-            @Override public PileType createPile(String typeName, ItemStack from, Material display, boolean solid, int maxSize, int[] customModelDatas, Sound placementSound, Sound takeSound, Sound destroySound, String[] args) {return new SimplePile(typeName, from.getType(), maxSize, solid, display, placementSound, takeSound, destroySound, customModelDatas);}
+            @Override public PileType createPile(String typeName, ItemStack from, Material display, boolean solid, int maxSize, int[] customModelDatas, String placementSound, String takeSound, String destroySound, String[] args) {return new SimplePile(typeName, from.getType(), maxSize, solid, display, placementSound, takeSound, destroySound, customModelDatas);}
             @Override public String requirementString(ItemStack item) { return Piles.getPluginConfig().getString("requirement_description_pile_simple", "").replace("%type%", item.getType().toString().toLowerCase()); }
         });
         registerSelector(new PileTypeSelector() {
             @Override public String getIdentifier() { return "exact"; }
-            @Override public PileType createPile(String typeName, ItemStack from, Material display, boolean solid, int maxSize, int[] customModelDatas, Sound placementSound, Sound takeSound, Sound destroySound, String[] args) {return new ComplexPile(typeName, from, maxSize, solid, display, placementSound, takeSound, destroySound, customModelDatas);}
+            @Override public PileType createPile(String typeName, ItemStack from, Material display, boolean solid, int maxSize, int[] customModelDatas, String placementSound, String takeSound, String destroySound, String[] args) {return new ComplexPile(typeName, from, maxSize, solid, display, placementSound, takeSound, destroySound, customModelDatas);}
             @Override public String requirementString(ItemStack item) { return Piles.getPluginConfig().getString("requirement_description_pile_exact", "").replace("%item%", Utils.getItemName(item)); }
         });
         registerSelector(new PileTypeSelector() {
             @Override public String getIdentifier() { return "type_and_cmd"; }
-            @Override public PileType createPile(String typeName, ItemStack from, Material display, boolean solid, int maxSize, int[] customModelDatas, Sound placementSound, Sound takeSound, Sound destroySound, String[] args) {return new CustomModelDataPile(typeName, from, maxSize, solid, display, placementSound, takeSound, destroySound, customModelDatas);}
+            @Override public PileType createPile(String typeName, ItemStack from, Material display, boolean solid, int maxSize, int[] customModelDatas, String placementSound, String takeSound, String destroySound, String[] args) {return new CustomModelDataPile(typeName, from, maxSize, solid, display, placementSound, takeSound, destroySound, customModelDatas);}
             @Override public String requirementString(ItemStack item) {
                 int data = Utils.getCustomModelData(item);
                 return Piles.getPluginConfig().getString("requirement_description_pile_cmd", "").replace("%type%", item.getType().toString().toLowerCase()).replace("%data%", data < 0 ? "none" : String.valueOf(data));
@@ -150,8 +148,21 @@ public class PileRegistry {
         return placePile(by, item, type, existingPile, d.getLocation(), rotation);
     }
 
+    private static boolean canPlace(Chunk chunk){
+        int limit = Piles.getPluginConfig().getInt("chunk_pile_limit");
+        int found = 0;
+        for (Entity entity : chunk.getEntities()){
+            if (entity instanceof ItemDisplay i && isPile(i)) found++;
+        }
+        return found < limit;
+    }
+
     private static boolean placePile(Player by, ItemStack item, PileType type, Pile pile, Location l, float rotation){
-        if (l.getWorld() == null || (by != null && (!by.hasPermission("piles.place") || !canPlacePiles(by) || hasPlacementBlocked(by))) || !type.acceptsItem(item) || !type.canPlace(l.getBlock())) return false;
+        if (pile == null && (by == null || !by.isOp()) && !canPlace(l.getChunk())) {
+            Utils.sendMessage(by, Piles.getPluginConfig().getString("message_pile_chunk_limit_reached", "").replace("%amount%", String.valueOf(Piles.getPluginConfig().getInt("chunk_pile_limit"))));
+            return false;
+        }
+        if (l.getWorld() == null || (by != null && (!by.hasPermission("piles.place") || !canPlacePiles(by, pile == null) || hasPlacementBlocked(by))) || !type.acceptsItem(item) || !type.canPlace(l.getBlock())) return false;
         item = item.clone();
         item.setAmount(1);
         Pos pos = new Pos(l.getWorld().getName(), l.getBlockX(), l.getBlockY(), l.getBlockZ());
@@ -227,6 +238,10 @@ public class PileRegistry {
         registeredPiles.put(pile.getType(), pile);
     }
 
+    public static boolean unregister(PileType pile){
+        return registeredPiles.remove(pile.getType()) != null;
+    }
+
     public static PileType getPileType(String pile){
         return registeredPiles.get(pile);
     }
@@ -239,7 +254,7 @@ public class PileRegistry {
                     String[] split = permission.getPermission().split("\\.");
                     if (split.length == 3) {
                         try {
-                            return Math.max(0, def + Integer.parseInt(split[2]));
+                            def += Integer.parseInt(split[2]);
                         } catch (IllegalArgumentException ignored){
                             Piles.logSevere(p.getName() + "'s permission '" + permission.getPermission() + "' does not have a valid number attached! Please correct fast!");
                         }
@@ -250,8 +265,11 @@ public class PileRegistry {
         return Math.max(0, def);
     }
 
-    public static boolean canPlacePiles(Player p){
-        return p.isOp() || quantityCounter.getPileQuantities().getOrDefault(p.getUniqueId(), 0) <= maxAllowedPiles(p);
+    public static boolean canPlacePiles(Player p, boolean sendWarning){
+        int limit = maxAllowedPiles(p);
+        boolean allowed = p.isOp() || quantityCounter.getPileQuantities().getOrDefault(p.getUniqueId(), 0) <= limit;
+        if (sendWarning && !allowed) Utils.sendMessage(p, Piles.getPluginConfig().getString("message_pile_limit_reached", "").replace("%amount%", String.valueOf(limit)));
+        return allowed;
     }
 
     @SuppressWarnings("all")
@@ -311,7 +329,7 @@ public class PileRegistry {
 
     public interface PileTypeSelector {
         String getIdentifier();
-        PileType createPile(String typeName, ItemStack from, Material display, boolean solid, int maxSize, int[] customModelDatas, Sound placementSound, Sound takeSound, Sound destroySound, String[] args);
+        PileType createPile(String typeName, ItemStack from, Material display, boolean solid, int maxSize, int[] customModelDatas, String placementSound, String takeSound, String destroySound, String[] args);
         String requirementString(ItemStack item);
     }
 
@@ -332,5 +350,9 @@ public class PileRegistry {
             p.getPersistentDataContainer().set(PLACEMENT_BLOCKER, PersistentDataType.BYTE, (byte) 0);
             return false;
         }
+    }
+
+    public static Map<String, PileType> getRegisteredPiles() {
+        return new HashMap<>(registeredPiles);
     }
 }

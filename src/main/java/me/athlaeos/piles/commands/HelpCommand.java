@@ -56,22 +56,22 @@ public class HelpCommand implements Command {
 
 	@Override
 	public String getFailureMessage(String[] args) {
-		return "/valhalla help <page>";
+		return "/piles help <page>";
 	}
 
 	@Override
 	public String getCommand() {
-		return "/valhalla help <page>";
+		return "/piles help <page>";
 	}
 
 	@Override
 	public String[] getRequiredPermissions() {
-		return new String[]{"valhalla.help"};
+		return new String[]{"piles.help"};
 	}
 
 	@Override
 	public boolean hasPermission(CommandSender sender) {
-		return sender.hasPermission("valhalla.help");
+		return sender.hasPermission("piles.help");
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package me.athlaeos.piles.piles;
 
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -9,7 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class CustomModelDataPile extends PileType {
     protected final int pileData;
     protected final Material pileItem;
-    public CustomModelDataPile(String type, ItemStack pileItem, int maxSize, boolean solid, Material displayItem, Sound placementSound, Sound takeSound, Sound destroySound, int... customModelData) {
+    public CustomModelDataPile(String type, ItemStack pileItem, int maxSize, boolean solid, Material displayItem, String placementSound, String takeSound, String destroySound, int... customModelData) {
         super(type, maxSize, displayItem, solid, placementSound, takeSound, destroySound, customModelData);
         this.pileItem = pileItem.getType();
         ItemMeta meta = pileItem.getItemMeta();

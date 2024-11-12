@@ -11,9 +11,9 @@
     <packaging>jar</packaging>
 
     <properties>
-        <spigotVersion>1.21</spigotVersion>
+        <spigotVersion>1.21.1</spigotVersion>
         <javaVersion>17</javaVersion>
-        <testServerPath>C:\Users\Job\Desktop\DEVSERVER 1.21 NEW\plugins</testServerPath>
+        <testServerPath>C:\Users\Athlaeos\Desktop\Minecraft Servers\1.21.3\plugins</testServerPath>
         <shadedPackage>me.athlaeos.piles.shaded</shadedPackage>
 
         <!-- Do not change the following properties -->
@@ -88,6 +88,11 @@
             <id>jeff-media-public</id>
             <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
         </repository>
+        <repository>
+            <id>magmaguy-repo-releases</id>
+            <name>MagmaGuy's Repository</name>
+            <url>https://repo.magmaguy.com/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -98,11 +103,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.jeff_media</groupId>
-            <artifactId>CustomBlockData</artifactId>
-            <version>2.1.0</version>
+            <groupId>com.jeff-media</groupId>
+            <artifactId>custom-block-data</artifactId>
+            <version>2.2.2</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.magmaguy</groupId>
+            <artifactId>ResourcePackManager</artifactId>
+            <version>1.2.0</version>
+        </dependency>
     </dependencies>
-
 </project>

@@ -20,7 +20,9 @@ public class CommandManager implements TabExecutor {
 
 		commands.put("help", new HelpCommand());
 		commands.put("create", new CreatePileCommand());
+		commands.put("delete", new DeletePileCommand());
 		commands.put("toggle", new TogglePilePlacementCommand());
+		commands.put("resourcepack", new ResourcePackCommand());
 	}
 
 	public static Map<String, Command> getCommands() {

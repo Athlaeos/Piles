@@ -4,7 +4,7 @@ main: me.athlaeos.piles.Piles
 author: Athlaeos
 api-version: 1.19
 load: POSTWORLD
-softdepend: []
+softdepend: [ ResourcePackManager ]
 
 commands:
   piles:
@@ -14,6 +14,9 @@ permissions:
   piles.place:
     default: true
     description: "Allows players to place piles of their own"
+  piles.resourcepack:
+    default: op
+    description: "Allows the installation of the default Piles resource pack"
   piles.create:
     default: op
     description: "Allows the creation of new pile types"
