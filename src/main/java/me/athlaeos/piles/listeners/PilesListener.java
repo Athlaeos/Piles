@@ -20,6 +20,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -131,6 +132,26 @@ public class PilesListener implements Listener {
                     }
                 }
             }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onExplosion(BlockExplodeEvent e){
+        if (e.isCancelled()) return;
+        for (Block b : e.blockList()){
+            Block above = b.getRelative(BlockFace.UP);
+            Pile pile = PileRegistry.fromBlock(above);
+            if (pile != null) PileRegistry.destroyPile(null, above);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onExplosion(EntityExplodeEvent e){
+        if (e.isCancelled()) return;
+        for (Block b : e.blockList()){
+            Block above = b.getRelative(BlockFace.UP);
+            Pile pile = PileRegistry.fromBlock(above);
+            if (pile != null) PileRegistry.destroyPile(null, above);
         }
     }
 

@@ -93,7 +93,7 @@ public class PileRegistry {
         Pile pile = activePilesByPosition.get(pos);
         if (pile == null){
             for (Entity e : b.getWorld().getNearbyEntities(b.getLocation(), 1, 1, 1)){
-                if (!(e instanceof ItemDisplay i) || !i.getPersistentDataContainer().has(PILE_TYPE)) continue;
+                if (!(e instanceof ItemDisplay i) || !i.getPersistentDataContainer().has(PILE_TYPE, PersistentDataType.STRING)) continue;
                 Pile p = fromEntity(i);
                 if (p == null || !p.getPosition().getWorld().equalsIgnoreCase(b.getWorld().getName()) ||
                         p.getPosition().getX() != b.getX() || p.getPosition().getY() != b.getY() || p.getPosition().getZ() != b.getZ()) continue;
@@ -105,7 +105,7 @@ public class PileRegistry {
     }
 
     public static Pile fromEntity(ItemDisplay display){
-        if (!display.getPersistentDataContainer().has(PILE_TYPE)) return null;
+        if (!display.getPersistentDataContainer().has(PILE_TYPE, PersistentDataType.STRING)) return null;
         PileType pileType = getPileType(display.getPersistentDataContainer().get(PILE_TYPE, PersistentDataType.STRING));
         String encodedItems = display.getPersistentDataContainer().getOrDefault(PILE_ITEMS, PersistentDataType.STRING, "");
         String[] itemEntries = encodedItems.split("<item>");
@@ -131,7 +131,7 @@ public class PileRegistry {
     }
 
     public static boolean isPile(ItemDisplay display){
-        return display.getPersistentDataContainer().has(PILE_TYPE);
+        return display.getPersistentDataContainer().has(PILE_TYPE, PersistentDataType.STRING);
     }
 
     public static boolean placePile(Player by, ItemStack item, Block b, float rotation){
@@ -334,7 +334,7 @@ public class PileRegistry {
     }
 
     public static boolean hasPlacementBlocked(Player p){
-        return p.getPersistentDataContainer().has(PLACEMENT_BLOCKER);
+        return p.getPersistentDataContainer().has(PLACEMENT_BLOCKER, PersistentDataType.BYTE);
     }
 
     /**
@@ -343,7 +343,7 @@ public class PileRegistry {
      * @return true if the player is now able to place piles, false if not
      */
     public static boolean togglePlacementBlocked(Player p){
-        if (p.getPersistentDataContainer().has(PLACEMENT_BLOCKER)) {
+        if (p.getPersistentDataContainer().has(PLACEMENT_BLOCKER, PersistentDataType.BYTE)) {
             p.getPersistentDataContainer().remove(PLACEMENT_BLOCKER);
             return true;
         } else {
