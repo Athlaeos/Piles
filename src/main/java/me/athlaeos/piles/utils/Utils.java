@@ -14,9 +14,8 @@ import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.security.MessageDigest;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -151,5 +150,24 @@ public class Utils {
             return i;
         } catch (ClassNotFoundException | IOException ignored) {}
         return null;
+    }
+
+    public static byte[] createSha1(File file) {
+        try(InputStream fis = new FileInputStream(file)){
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+
+            int n = 0;
+            byte[] buffer = new byte[8192];
+            while (n != -1) {
+                n = fis.read(buffer);
+                if (n > 0) {
+                    digest.update(buffer, 0, n);
+                }
+            }
+            return digest.digest();
+        } catch (Exception ignored){
+            Piles.logSevere("Could not generate sha1 for the resource pack");
+            return null;
+        }
     }
 }
