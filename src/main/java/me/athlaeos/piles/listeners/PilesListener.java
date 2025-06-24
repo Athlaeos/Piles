@@ -1,7 +1,6 @@
 package me.athlaeos.piles.listeners;
 
 import me.athlaeos.piles.PileRegistry;
-import me.athlaeos.piles.Piles;
 import me.athlaeos.piles.domain.Pile;
 import me.athlaeos.piles.utils.Timer;
 import me.athlaeos.piles.utils.Utils;
@@ -10,15 +9,24 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.BlockSupport;
 import org.bukkit.block.data.Directional;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.*;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockMultiPlaceEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockPistonRetractEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -26,8 +34,6 @@ import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.RayTraceResult;
-
-import java.util.stream.Collectors;
 
 public class PilesListener implements Listener {
 
@@ -44,200 +50,211 @@ public class PilesListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onInteract(PlayerInteractEvent e){
-        if (e.useItemInHand() == Event.Result.DENY || e.getHand() == EquipmentSlot.OFF_HAND || !Timer.isCooldownPassed(e.getPlayer().getUniqueId(), "delay_item_placement")) return;
-        RayTraceResult result = e.getPlayer().getWorld().rayTraceEntities(e.getPlayer().getEyeLocation(), e.getPlayer().getEyeLocation().getDirection(), 5, 0.3, en -> en instanceof ItemDisplay d && PileRegistry.isPile(d));
-        // full destroy or placement of pile
+    public void onInteract(PlayerInteractEvent event){
+        Block block = event.getClickedBlock();
+        Action action = event.getAction();
+        Player player = event.getPlayer();
+        Location eyeLocation = player.getEyeLocation();
+        if (event.useItemInHand() == Event.Result.DENY
+                || action == Action.PHYSICAL
+                || event.getHand() == EquipmentSlot.OFF_HAND
+                || !Timer.isCooldownPassed(player.getUniqueId(), "delay_item_placement")) {
+            return;
+        }
 
-        float direction = get8WayDirection(e.getPlayer().getEyeLocation());
-        Timer.setCooldown(e.getPlayer().getUniqueId(), 50, "delay_item_placement");
-        if (result != null && result.getHitEntity() != null){
-            // interacting with existing pile
-            if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
-                ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
-                if (canPlace(e.getPlayer(), result.getHitEntity().getLocation().getBlock(), BlockFace.UP)){
-                    // do not trust compiler warning saying hand is hand != null is always false, it isn't and this depends on server software like papermc or purpur
-                    if (hand != null && !hand.getType().isAir()) {
-                        if (PileRegistry.placePile(e.getPlayer(), hand, (ItemDisplay) result.getHitEntity(), direction)){
-                            e.getPlayer().swingMainHand();
-                            if (e.getPlayer().getGameMode() != GameMode.CREATIVE){
-                                if (hand.getAmount() == 1) e.getPlayer().getInventory().setItemInMainHand(null);
-                                else hand.setAmount(hand.getAmount() - 1);
-                            }
-                        }
-                    } else {
-                        ItemStack taken = PileRegistry.takeFromPile((ItemDisplay) result.getHitEntity(), e.getPlayer());
-                        if (taken != null && !taken.getType().isAir()) Utils.addItem(e.getPlayer(), taken, true);
-                    }
-                    e.setCancelled(true);
-                }
-            } else if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK){
-                if (canTake(e.getPlayer(), result.getHitEntity().getLocation().getBlock())) {
-                    PileRegistry.destroyPile(e.getPlayer(), (ItemDisplay) result.getHitEntity());
-                    e.setCancelled(true);
-                }
-            }
-        } else {
-            if (e.getClickedBlock() == null) return;
-            Pile pile = PileRegistry.fromBlock(e.getClickedBlock());
-            if (pile == null){
-                if (e.getBlockFace() != BlockFace.UP) return; // must be sneaking to place pile
-                Block b = e.getClickedBlock().getRelative(BlockFace.UP);
-                if (!b.getRelative(BlockFace.DOWN).getType().isSolid()) return; // block below must be solid
-                ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
-                if (e.getPlayer().isSneaking() && hand != null && !hand.getType().isAir() && canPlace(e.getPlayer(), e.getClickedBlock(), BlockFace.UP)) {
-                    if (PileRegistry.placePile(e.getPlayer(), hand, b, direction)){
-                        e.getPlayer().swingMainHand();
-                        if (e.getPlayer().getGameMode() != GameMode.CREATIVE){
-                            if (hand.getAmount() == 1) e.getPlayer().getInventory().setItemInMainHand(null);
-                            else hand.setAmount(hand.getAmount() - 1);
-                        }
-                        e.setCancelled(true);
-                    }
+        boolean rightClick = event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK;
+        Timer.setCooldown(event.getPlayer().getUniqueId(), 50, "delay_item_placement");
+        RayTraceResult result = player.getWorld().rayTraceEntities(eyeLocation, eyeLocation.getDirection(), 5, 0.3, PileRegistry::isPile);
+        float direction = get8WayDirection(eyeLocation);
+
+        // interacting with existing pile entity
+        if (result != null && result.getHitEntity() != null) {
+            ItemDisplay display = (ItemDisplay) result.getHitEntity();
+            block = display.getLocation().getBlock();
+            if (rightClick) {
+                ItemStack held = player.getInventory().getItemInMainHand();
+                if (held.getType().isAir()) {
+                    takeFromPile(player, display);
+                } else {
+                    addOrCreatePile(player, held, block, direction);
                 }
             } else {
-                // interacting with existing pile
-                if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
-                    ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
-                    if (!hand.getType().isAir()) {
-                        if (!e.getPlayer().isSneaking()){
-                            if (canPlace(e.getPlayer(), e.getClickedBlock().getLocation().subtract(0, 1, 0).getBlock(), BlockFace.UP)){
-                                if (PileRegistry.placePile(e.getPlayer(), hand, e.getClickedBlock(), direction)){
-                                    e.getPlayer().swingMainHand();
-                                    if (e.getPlayer().getGameMode() != GameMode.CREATIVE){
-                                        if (hand.getAmount() == 1) e.getPlayer().getInventory().setItemInMainHand(null);
-                                        else hand.setAmount(hand.getAmount() - 1);
-                                    }
-                                    e.setCancelled(true);
-                                }
-                            }
-                        } else if (canTake(e.getPlayer(), e.getClickedBlock())) {
-                            ItemStack taken = PileRegistry.takeFromPile(pile.getDisplay(), e.getPlayer());
-                            if (taken != null && !taken.getType().isAir()) {
-                                Utils.addItem(e.getPlayer(), taken, true);
-                                e.setCancelled(true);
-                            }
-                        }
-                    } else if (canTake(e.getPlayer(), e.getClickedBlock())) {
-                        ItemStack taken = PileRegistry.takeFromPile(pile.getDisplay(), e.getPlayer());
-                        if (taken != null && !taken.getType().isAir()) {
-                            Utils.addItem(e.getPlayer(), taken, true);
-                            e.setCancelled(true);
-                        }
-                    }
-                } else if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK){
-                    if (canTake(e.getPlayer(), e.getClickedBlock())) {
-                        PileRegistry.destroyPile(e.getPlayer(), e.getClickedBlock());
-                        e.setCancelled(true);
-                    }
+                PileRegistry.destroyPile(player, display);
+            }
+            event.setCancelled(true);
+            return;
+        }
+
+        // If no found entity, rely on the block
+        if (block == null) return;
+
+        Pile pile = PileRegistry.fromBlock(block);
+        if (pile == null) {
+            // No found pile, must be adding/creating
+            if (!rightClick || !player.isSneaking() || event.getBlockFace() != BlockFace.UP) return;
+            block = block.getRelative(BlockFace.UP);
+            if (!block.getRelative(BlockFace.DOWN).getBlockData().isFaceSturdy(BlockFace.UP, BlockSupport.CENTER)) return; // block below must be sturdy
+            event.setCancelled(addOrCreatePile(player, player.getInventory().getItemInMainHand(), block, direction));
+            return;
+        }
+
+        // interacting with existing pile
+        ItemDisplay display = pile.getDisplay();
+        if (display == null) return; // pile display must exist
+
+        if (rightClick) {
+            ItemStack hand = player.getInventory().getItemInMainHand();
+            if (!hand.getType().isAir()) {
+                if (player.isSneaking()) {
+                    addOrCreatePile(player, hand, display, direction);
+                } else {
+                    takeFromPile(player, display);
                 }
+            } else {
+                takeFromPile(player, display);
             }
+        } else {
+            PileRegistry.destroyPile(player, block);
+        }
+        event.setCancelled(true);
+    }
+
+    public void addOrCreatePile(Player player, ItemStack held, ItemDisplay display, float direction) {
+        if (PileRegistry.placePile(player, held, display, direction)){
+            onAdded(player, held);
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    public boolean addOrCreatePile(Player player, ItemStack held, Block block, float direction) {
+        if (!held.getType().isAir() && PileRegistry.placePile(player, held, block, direction)){
+            onAdded(player, held);
+            return true;
+        }
+        return false;
+    }
+
+    public void takeFromPile(Player player, ItemDisplay display) {
+        ItemStack taken = PileRegistry.takeFromPile(display, player);
+        if (taken != null && !taken.getType().isAir()) {
+            Utils.addItem(player, taken, true);
+        }
+    }
+
+    private void onAdded(Player player, ItemStack held) {
+        player.swingMainHand();
+        if (player.getGameMode() != GameMode.CREATIVE){
+            held.setAmount(held.getAmount() - 1);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onExplosion(BlockExplodeEvent e){
-        if (e.isCancelled()) return;
-        for (Block b : e.blockList()){
-            Block above = b.getRelative(BlockFace.UP);
-            Pile pile = PileRegistry.fromBlock(above);
-            if (pile != null) PileRegistry.destroyPile(null, above);
+        for (Block block : e.blockList()){
+            Block above = block.getRelative(BlockFace.UP);
+            if (PileRegistry.fromBlock(above) != null) {
+                PileRegistry.destroyPile(null, above);
+            }
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onExplosion(EntityExplodeEvent e){
-        if (e.isCancelled()) return;
-        for (Block b : e.blockList()){
-            Block above = b.getRelative(BlockFace.UP);
-            Pile pile = PileRegistry.fromBlock(above);
-            if (pile != null) PileRegistry.destroyPile(null, above);
+        Player cause = null;
+        if (e.getEntity() instanceof Player player) {
+            cause = player;
+        } else if (e.getEntity() instanceof TNTPrimed tnt && tnt.getSource() instanceof Player player) {
+            cause = player;
+        }
+
+        for (Block block : e.blockList()){
+            Block above = block.getRelative(BlockFace.UP);
+            if (PileRegistry.fromBlock(above) != null) {
+                PileRegistry.destroyPile(cause, above);
+            }
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent e){
-        if (e.isCancelled()) return;
         Block above = e.getBlock().getRelative(BlockFace.UP);
-        Pile pile = PileRegistry.fromBlock(above);
-        if (pile != null) PileRegistry.destroyPile(e.getPlayer(), above);
+        if (PileRegistry.fromBlock(above) != null) {
+            PileRegistry.destroyPile(e.getPlayer(), above);
+        }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onFallBlock(EntityChangeBlockEvent event) {
-        if (event.isCancelled()) return;
         if (event.getEntity() instanceof FallingBlock fallingBlock) {
-            Pile pile = PileRegistry.fromBlock(fallingBlock.getLocation().getBlock());
-            if (pile != null) PileRegistry.destroyPile(null, fallingBlock.getLocation().getBlock());
+            Block block = fallingBlock.getLocation().getBlock();
+            if (PileRegistry.fromBlock(block) != null) {
+                PileRegistry.destroyPile(null, block);
+            }
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockForm(BlockFormEvent e){
-        if (e.isCancelled()) return;
-        Pile pile = PileRegistry.fromBlock(e.getBlock());
-        if (pile != null && e.getBlock().getType().isOccluding()) PileRegistry.destroyPile(null, e.getBlock());
+        Block block = e.getBlock();
+        if (block.getType().isOccluding() && PileRegistry.fromBlock(block) != null) {
+            PileRegistry.destroyPile(null, e.getBlock());
+        }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onStructureForm(StructureGrowEvent e){
-        if (e.isCancelled()) return;
-        for (BlockState b : e.getBlocks()){
-            Pile pile = PileRegistry.fromBlock(b.getBlock());
-            if (pile != null && b.getType().isOccluding()) PileRegistry.destroyPile(null, b.getBlock());
+        for (BlockState state : e.getBlocks()){
+            Block block = state.getBlock();
+            if (state.getType().isOccluding() && PileRegistry.fromBlock(block) != null) {
+                PileRegistry.destroyPile(null, block);
+            }
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPistonMove(BlockPistonExtendEvent e){
-        if (e.isCancelled()) return;
-        if (e.getBlock().getBlockData() instanceof Directional d){
-            for (Block b : e.getBlocks().stream().map(b -> b.getRelative(d.getFacing())).collect(Collectors.toSet())){
-                Pile pile = PileRegistry.fromBlock(b);
-                if (pile != null && b.getType().isOccluding()) PileRegistry.destroyPile(null, b);
+        if (!(e.getBlock().getBlockData() instanceof Directional d)) {
+            return;
+        }
+
+        BlockFace face = d.getFacing();
+        for (Block block : e.getBlocks()) {
+            block = block.getRelative(face);
+            if (block.getType().isOccluding() && PileRegistry.fromBlock(block) != null) {
+                PileRegistry.destroyPile(null, block);
             }
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPistonMove(BlockPistonRetractEvent e){
-        if (e.isCancelled()) return;
-        if (e.getBlock().getBlockData() instanceof Directional d){
-            for (Block b : e.getBlocks().stream().map(b -> b.getRelative(d.getFacing().getOppositeFace())).collect(Collectors.toSet())){
-                Pile pile = PileRegistry.fromBlock(b);
-                if (pile != null && b.getType().isOccluding()) PileRegistry.destroyPile(null, b);
+        if (!(e.getBlock().getBlockData() instanceof Directional d)) {
+            return;
+        }
+
+        BlockFace face = d.getFacing().getOppositeFace();
+        for (Block block : e.getBlocks()) {
+            block = block.getRelative(face);
+            if (block.getType().isOccluding() && PileRegistry.fromBlock(block) != null) {
+                PileRegistry.destroyPile(null, block);
             }
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent e){
-        if (e.isCancelled()) return;
-        Pile pile = PileRegistry.fromBlock(e.getBlock());
-        if (pile != null && e.getBlock().getType().isOccluding()) e.setCancelled(true); // do not place solid blocks on piles
+        Block block = e.getBlock();
+        if (block.getType().isOccluding() && PileRegistry.fromBlock(block) != null) {
+            e.setCancelled(true); // do not place solid blocks on piles
+        }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockPlace(BlockMultiPlaceEvent e){
-        if (e.isCancelled()) return;
         for (BlockState state : e.getReplacedBlockStates()) {
-            Pile pile = PileRegistry.fromBlock(state.getBlock());
-            if (pile != null) {
+            if (PileRegistry.fromBlock(state.getBlock()) != null) {
                 e.setCancelled(true); // do not place blocks on piles
                 return;
             }
         }
-    }
-
-    private boolean canPlace(Player player, Block against, BlockFace face){
-        BlockPlaceEvent event = new BlockPlaceEvent(against.getRelative(face), against.getState(), against, player.getInventory().getItemInMainHand(), player, true, EquipmentSlot.HAND);
-        Piles.getInstance().getServer().getPluginManager().callEvent(event);
-        return !event.isCancelled();
-    }
-
-    private boolean canTake(Player player, Block from){
-        BlockBreakEvent event = new BlockBreakEvent(from, player);
-        Piles.getInstance().getServer().getPluginManager().callEvent(event);
-        return !event.isCancelled();
     }
 }

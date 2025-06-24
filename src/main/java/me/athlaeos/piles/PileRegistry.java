@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import me.athlaeos.piles.adapters.GsonAdapter;
 import me.athlaeos.piles.adapters.ItemStackGSONAdapter;
-import me.athlaeos.piles.config.ConfigManager;
 import me.athlaeos.piles.domain.Pile;
 import me.athlaeos.piles.domain.PileQuantityCounter;
 import me.athlaeos.piles.piles.ComplexPile;
@@ -18,14 +17,21 @@ import me.athlaeos.piles.domain.Pos;
 import me.athlaeos.piles.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -45,7 +51,7 @@ public class PileRegistry {
             .disableHtmlEscaping()
             .enableComplexMapKeySerialization()
             .create();
-    private static final Map<String, PileType> registeredPiles = new HashMap<>();
+    private static final Map<String, PileType> registeredPiles = new LinkedHashMap<>();
     private static final Map<String, PileTypeSelector> registeredSelectors = new HashMap<>();
     private static final Map<Pos, Pile> activePilesByPosition = new HashMap<>();
     private static PileQuantityCounter quantityCounter = null;
@@ -71,144 +77,179 @@ public class PileRegistry {
         });
     }
 
-    public static void registerSelector(PileTypeSelector selector){
-        registeredSelectors.put(selector.getIdentifier(), selector);
-    }
+    public static Pile fromBlock(Block b){
+        Pos pos = new Pos(b);
+        Pile pile = activePilesByPosition.get(pos);
+        if (pile != null) {
+            return pile;
+        }
 
-    public static Map<String, PileTypeSelector> getRegisteredSelectors() {
-        return new HashMap<>(registeredSelectors);
-    }
-
-    public static PileType typeFromItem(ItemStack item){
-        List<PileType> pilesByPriority = new ArrayList<>(registeredPiles.values());
-        pilesByPriority.sort(Comparator.comparingInt(PileType::priority));
-        for (PileType pile : pilesByPriority){
-            if (pile.acceptsItem(item)) return pile;
+        for (Entity e : b.getWorld().getNearbyEntities(b.getLocation(), 1, 1, 1, PileRegistry::isPile)){
+            Pile p = fromEntity((ItemDisplay) e);
+            if (p != null && p.getPosition().equals(pos)) {
+                activePilesByPosition.put(pos, p);
+                return p;
+            }
         }
         return null;
     }
 
-    public static Pile fromBlock(Block b){
-        Pos pos = new Pos(b.getWorld().getName(), b.getX(), b.getY(), b.getZ());
-        Pile pile = activePilesByPosition.get(pos);
-        if (pile == null){
-            for (Entity e : b.getWorld().getNearbyEntities(b.getLocation(), 1, 1, 1)){
-                if (!(e instanceof ItemDisplay i) || !i.getPersistentDataContainer().has(PILE_TYPE, PersistentDataType.STRING)) continue;
-                Pile p = fromEntity(i);
-                if (p == null || !p.getPosition().getWorld().equalsIgnoreCase(b.getWorld().getName()) ||
-                        p.getPosition().getX() != b.getX() || p.getPosition().getY() != b.getY() || p.getPosition().getZ() != b.getZ()) continue;
-                pile = p;
-                activePilesByPosition.put(pos, p);
-            }
-        }
-        return pile;
-    }
-
     public static Pile fromEntity(ItemDisplay display){
-        if (!display.getPersistentDataContainer().has(PILE_TYPE, PersistentDataType.STRING)) return null;
-        PileType pileType = getPileType(display.getPersistentDataContainer().get(PILE_TYPE, PersistentDataType.STRING));
-        String encodedItems = display.getPersistentDataContainer().getOrDefault(PILE_ITEMS, PersistentDataType.STRING, "");
+        if (!isPile(display)) return null;
+        PersistentDataContainer pdc = display.getPersistentDataContainer();
+        PileType pileType = getPileType(pdc.get(PILE_TYPE, PersistentDataType.STRING));
+
+        String encodedItems = pdc.getOrDefault(PILE_ITEMS, PersistentDataType.STRING, "");
         String[] itemEntries = encodedItems.split("<item>");
         List<ItemStack> items = new ArrayList<>();
-        if (!encodedItems.isEmpty()) for (String entry : itemEntries) items.add(Utils.deserialize(entry));
+        if (!encodedItems.isEmpty()) {
+            for (String entry : itemEntries) {
+                items.add(Utils.deserialize(entry));
+            }
+        }
+
         if (pileType == null) {
             // destroy if pile type was deleted
-            items.forEach(i -> display.getWorld().dropItemNaturally(display.getLocation().subtract(0.5, 0.5, 0.5), i));
+            for (ItemStack i : items) {
+                display.getWorld().dropItemNaturally(display.getLocation().subtract(0.5, 0.5, 0.5), i);
+            }
             display.remove();
             if (display.getLocation().getBlock().getType() == Material.BARRIER) display.getLocation().getBlock().setType(Material.AIR);
             return null;
         }
-        String uuid = display.getPersistentDataContainer().get(PILE_OWNER, PersistentDataType.STRING);
+
+        String uuid = pdc.get(PILE_OWNER, PersistentDataType.STRING);
         UUID owner = uuid == null ? null : UUID.fromString(uuid);
-        String encodedPos = display.getPersistentDataContainer().getOrDefault(PILE_POSITION, PersistentDataType.STRING, "");
+
+        String encodedPos = pdc.getOrDefault(PILE_POSITION, PersistentDataType.STRING, "");
         String[] posEntries = encodedPos.split(",");
         String world = posEntries[0];
         int x = Integer.parseInt(posEntries[1]);
         int y = Integer.parseInt(posEntries[2]);
         int z = Integer.parseInt(posEntries[3]);
-        Pos realPos = new Pos(world, x, y, z);
-        return new Pile(pileType, realPos, owner, display, items);
+        Pos pos = new Pos(world, x, y, z);
+
+        return new Pile(pileType, pos, owner, display, items);
+    }
+
+    public static boolean isPile(Block b) {
+        return fromBlock(b) != null;
+    }
+
+    public static boolean isPile(Entity entity){
+        return entity instanceof ItemDisplay display && isPile(display);
     }
 
     public static boolean isPile(ItemDisplay display){
         return display.getPersistentDataContainer().has(PILE_TYPE, PersistentDataType.STRING);
     }
 
-    public static boolean placePile(Player by, ItemStack item, Block b, float rotation){
+    public static boolean placePile(@Nonnull Player by, ItemStack item, Block b, float rotation){
         PileType type = typeFromItem(item);
         if (type == null) return false;
         Pile existingPile = fromBlock(b);
-        return placePile(by, item, type, existingPile, b.getLocation(), rotation);
+        return placePile(by, item, type, existingPile, b, rotation);
     }
 
-    public static boolean placePile(Player by, ItemStack item, ItemDisplay d, float rotation){
+    public static boolean placePile(@Nonnull Player by, ItemStack item, ItemDisplay d, float rotation){
         PileType type = typeFromItem(item);
         if (type == null) return false;
         Pile existingPile = fromEntity(d);
-        return placePile(by, item, type, existingPile, d.getLocation(), rotation);
+        return placePile(by, item, type, existingPile, d.getLocation().getBlock(), rotation);
     }
 
-    private static boolean canPlace(Chunk chunk){
-        int limit = Piles.getPluginConfig().getInt("chunk_pile_limit");
-        int found = 0;
-        for (Entity entity : chunk.getEntities()){
-            if (entity instanceof ItemDisplay i && isPile(i)) found++;
-        }
-        return found < limit;
-    }
-
-    private static boolean placePile(Player by, ItemStack item, PileType type, Pile pile, Location l, float rotation){
-        if (pile == null && (by == null || !by.isOp()) && !canPlace(l.getChunk())) {
-            Utils.sendMessage(by, Piles.getPluginConfig().getString("message_pile_chunk_limit_reached", "").replace("%amount%", String.valueOf(Piles.getPluginConfig().getInt("chunk_pile_limit"))));
+    private static boolean canPlace(@Nonnull Player player, ItemStack item, Block block, boolean newPile) {
+        if (!player.hasPermission("piles.place") || (newPile && !canPlacePiles(player)) || hasPlacementBlocked(player)) {
             return false;
         }
-        if (l.getWorld() == null || (by != null && (!by.hasPermission("piles.place") || !canPlacePiles(by, pile == null) || hasPlacementBlocked(by))) || !type.acceptsItem(item) || !type.canPlace(l.getBlock())) return false;
+
+        if (newPile) {
+            int found = 0;
+            for (Entity entity : block.getChunk().getEntities()){
+                if (isPile(entity)) found++;
+            }
+
+            int limit = Piles.getPluginConfig().getInt("chunk_pile_limit");
+            if (found >= limit) {
+                Utils.sendMessage(player, Piles.getPluginConfig().getString("message_pile_chunk_limit_reached", "")
+                        .replace("%amount%", String.valueOf(limit)));
+                return false;
+            }
+        }
+
+        BlockPlaceEvent event = new BlockPlaceEvent(block, block.getState(), block.getRelative(BlockFace.DOWN), item, player, true, EquipmentSlot.HAND);
+        Bukkit.getPluginManager().callEvent(event);
+        return !event.isCancelled();
+    }
+
+    private static boolean placePile(@Nonnull Player player, ItemStack item, PileType type, Pile pile, Block block, float rotation) {
+        if (!type.acceptsItem(item) || !type.canPlace(block)
+                || (pile != null && (!pile.isValid() || !pile.getPile().equals(type.getType()) || pile.getItems().size() >= type.getMaxSize()))
+                || !canPlace(player, item, block, pile == null)) {
+            return false;
+        }
+
+        Pos pos = new Pos(block);
         item = item.clone();
         item.setAmount(1);
-        Pos pos = new Pos(l.getWorld().getName(), l.getBlockX(), l.getBlockY(), l.getBlockZ());
+
         ItemDisplay display;
         if (pile == null) {
-            display = l.getWorld().spawn(l.add(0.5, 0.5, 0.5), ItemDisplay.class);
-            display.setRotation(rotation, 0);
-            display.getPersistentDataContainer().set(PILE_TYPE, PersistentDataType.STRING, type.getType());
-            if (by != null) display.getPersistentDataContainer().set(PILE_OWNER, PersistentDataType.STRING, by.getUniqueId().toString());
-            display.getPersistentDataContainer().set(PILE_POSITION, PersistentDataType.STRING, String.format("%s,%d,%d,%d", pos.getWorld(), pos.getX(), pos.getY(), pos.getZ()));
-            pile = new Pile(type, pos, by == null ? null : by.getUniqueId(), display, new ArrayList<>());
-            if (type.isSolid()) l.getWorld().getBlockAt(l).setType(Material.BARRIER);
+            display = block.getWorld().spawn(block.getLocation().add(0.5, 0.5, 0.5), ItemDisplay.class, spawned -> {
+                PersistentDataContainer pdc = spawned.getPersistentDataContainer();
+                pdc.set(PILE_TYPE, PersistentDataType.STRING, type.getType());
+                pdc.set(PILE_OWNER, PersistentDataType.STRING, player.getUniqueId().toString());
+                pdc.set(PILE_POSITION, PersistentDataType.STRING, pos.toString());
+                spawned.setRotation(rotation, 0);
+            });
+            pile = new Pile(type, pos, player.getUniqueId(), display, new ArrayList<>());
+            if (type.isSolid()) block.setType(Material.BARRIER);
             activePilesByPosition.put(pos, pile);
-            if (by != null && !by.isOp()) quantityCounter.getPileQuantities().put(by.getUniqueId(), quantityCounter.getPileQuantities().getOrDefault(by.getUniqueId(), 0) + 1);
+            if (!player.isOp()) quantityCounter.getPileQuantities().put(player.getUniqueId(), quantityCounter.getPileQuantities().getOrDefault(player.getUniqueId(), 0) + 1);
         } else {
-            if (pile.getItems().size() >= type.getMaxSize()) return false; // pile is full
             display = pile.getDisplay();
-            if (!display.getPersistentDataContainer().getOrDefault(PILE_TYPE, PersistentDataType.STRING, type.getType()).equals(type.getType())) return false;
         }
-        if (type.getPlacementSound() != null) l.getWorld().playSound(l, type.getPlacementSound(), 1F, 1F);
+
+        if (type.getPlacementSound() != null) {
+            block.getWorld().playSound(block.getLocation(), type.getPlacementSound(), 1F, 1F);
+        }
         pile.addItem(item);
-        display.getPersistentDataContainer().set(PILE_ITEMS, PersistentDataType.STRING, pile.getItems().stream().map(Utils::serialize).collect(Collectors.joining("<item>")));
+        display.getPersistentDataContainer().set(PILE_ITEMS, PersistentDataType.STRING, pile.serializeItems());
         display.setItemStack(type.getFinalDisplay(pile.getItems().size()));
         return true;
     }
 
-    public static void destroyPile(Player destroyer, Block b){
+    public static boolean destroyPile(@Nullable Player destroyer, Block b){
         Pile existingPile = fromBlock(b);
-        if (existingPile == null) return;
-        destroyPile(existingPile, destroyer);
+        if (existingPile == null) return false;
+        return destroyPile(existingPile, destroyer);
     }
 
-    public static void destroyPile(Player destroyer, ItemDisplay d){
+    public static boolean destroyPile(@Nullable Player destroyer, ItemDisplay d){
         Pile existingPile = fromEntity(d);
-        if (existingPile == null) return;
-        destroyPile(existingPile, destroyer);
+        if (existingPile == null) return false;
+        return destroyPile(existingPile, destroyer);
     }
 
-    public static boolean canDestroy(Player p, Pile pile){
-        boolean pileProtection = Piles.getPluginConfig().getBoolean("pile_protection", false);
-        if (!pileProtection) return true;
-        return p != null && (p.isOp() || pile.getOwner().equals(p.getUniqueId()));
+    public static boolean canDestroy(@Nullable Player p, Pile pile){
+        Block block = pile.getPosition().getBlock();
+        if (block == null) {
+            return false;
+        } else if (Piles.getPluginConfig().getBoolean("pile_protection", false)
+                && (p != null && !p.isOp() && !pile.getOwner().equals(p.getUniqueId()))) {
+            return false;
+        } else if (p == null) {
+            return true;
+        }
+
+        BlockBreakEvent event = new BlockBreakEvent(block, p);
+        event.setDropItems(false);
+        Bukkit.getPluginManager().callEvent(event);
+        return !event.isCancelled();
     }
 
-    private static void destroyPile(Pile pile, Player destroyer){
-        if (!canDestroy(destroyer, pile)) return;
+    private static boolean destroyPile(Pile pile, @Nullable Player destroyer){
+        if (!canDestroy(destroyer, pile)) return false;
         ItemDisplay display = pile.getDisplay();
         PileType type = getPileType(pile.getPile());
         quantityCounter.getPileQuantities().put(pile.getOwner(), Math.max(0, quantityCounter.getPileQuantities().getOrDefault(pile.getOwner(), 0) - 1));
@@ -217,9 +258,10 @@ public class PileRegistry {
         pile.getItems().forEach(i -> display.getWorld().dropItemNaturally(display.getLocation().subtract(0.5, 0.5, 0.5), i));
         display.remove();
         activePilesByPosition.remove(pile.getPosition());
+        return true;
     }
 
-    public static ItemStack takeFromPile(ItemDisplay b, Player destroyer){
+    public static ItemStack takeFromPile(ItemDisplay b, @Nonnull Player destroyer){
         Pile existingPile = fromEntity(b);
         if (existingPile == null || !canDestroy(destroyer, existingPile)) return null;
         ItemDisplay display = existingPile.getDisplay();
@@ -234,8 +276,18 @@ public class PileRegistry {
         return item;
     }
 
+    public static void registerSelector(PileTypeSelector selector){
+        registeredSelectors.put(selector.getIdentifier(), selector);
+    }
+
     public static void register(PileType pile){
-        registeredPiles.put(pile.getType(), pile);
+        List<PileType> types = new ArrayList<>(registeredPiles.values());
+        types.add(pile);
+        types.sort(Comparator.comparingInt(PileType::priority));
+        registeredPiles.clear();
+        for (PileType type : types) {
+            registeredPiles.put(type.getType(), type);
+        }
     }
 
     public static boolean unregister(PileType pile){
@@ -265,10 +317,12 @@ public class PileRegistry {
         return Math.max(0, def);
     }
 
-    public static boolean canPlacePiles(Player p, boolean sendWarning){
+    public static boolean canPlacePiles(Player p){
         int limit = maxAllowedPiles(p);
         boolean allowed = p.isOp() || quantityCounter.getPileQuantities().getOrDefault(p.getUniqueId(), 0) <= limit;
-        if (sendWarning && !allowed) Utils.sendMessage(p, Piles.getPluginConfig().getString("message_pile_limit_reached", "").replace("%amount%", String.valueOf(limit)));
+        if (!allowed) {
+            Utils.sendMessage(p, Piles.getPluginConfig().getString("message_pile_limit_reached", "").replace("%amount%", String.valueOf(limit)));
+        }
         return allowed;
     }
 
@@ -354,5 +408,16 @@ public class PileRegistry {
 
     public static Map<String, PileType> getRegisteredPiles() {
         return new HashMap<>(registeredPiles);
+    }
+
+    public static Map<String, PileTypeSelector> getRegisteredSelectors() {
+        return new HashMap<>(registeredSelectors);
+    }
+
+    public static PileType typeFromItem(ItemStack item){
+        for (PileType pile : registeredPiles.values()){
+            if (pile.acceptsItem(item)) return pile;
+        }
+        return null;
     }
 }
