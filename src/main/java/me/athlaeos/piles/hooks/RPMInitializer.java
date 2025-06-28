@@ -13,5 +13,6 @@ public class RPMInitializer {
                 false,
                 true,
                 "");
+        ResourcePackManagerAPI.reloadResourcePack();
     }
 }

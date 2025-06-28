@@ -3,7 +3,6 @@ version: ${project.version}
 main: me.athlaeos.piles.Piles
 author: Athlaeos
 api-version: 1.19
-load: POSTWORLD
 softdepend: [ ResourcePackManager ]
 
 commands:

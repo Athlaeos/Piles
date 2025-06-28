@@ -2,6 +2,7 @@ package me.athlaeos.piles.listeners;
 
 import me.athlaeos.piles.PileRegistry;
 import me.athlaeos.piles.domain.Pile;
+import me.athlaeos.piles.piles.PileType;
 import me.athlaeos.piles.utils.Timer;
 import me.athlaeos.piles.utils.Utils;
 import org.bukkit.GameMode;

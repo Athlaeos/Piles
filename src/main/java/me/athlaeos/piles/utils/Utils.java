@@ -99,6 +99,9 @@ public class Utils {
     public static boolean isEmpty(String string){
         return string == null || string.isEmpty();
     }
+    public static boolean isEmpty(ItemStack item){
+        return item == null || item.getType().isAir();
+    }
 
     public static String serialize(ItemStack itemStack) throws IllegalStateException {
         try {

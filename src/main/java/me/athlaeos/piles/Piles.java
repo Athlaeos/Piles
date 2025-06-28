@@ -34,7 +34,7 @@ public class Piles extends JavaPlugin {
 
     @Override
     public void onLoad(){
-        registerHook(new RPMHook());
+        //registerHook(new RPMHook());
     }
 
     @Override
