@@ -1,15 +1,16 @@
 package me.athlaeos.piles.domain;
 
-import me.athlaeos.piles.Piles;
 import me.athlaeos.piles.piles.PileType;
-import org.bukkit.entity.Entity;
+import me.athlaeos.piles.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.ItemDisplay;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Pile {
     private final String pile;
@@ -42,9 +43,16 @@ public class Pile {
         return new ArrayList<>(items);
     }
 
+    public String serializeItems() {
+        StringJoiner joiner = new StringJoiner("<item>");
+        for (ItemStack item : items) {
+            joiner.add(Utils.serialize(item));
+        }
+        return joiner.toString();
+    }
+
     public ItemDisplay getDisplay(){
-        Entity e = Piles.getInstance().getServer().getEntity(entity);
-        return e == null ? null : (ItemDisplay) e;
+        return Bukkit.getEntity(entity) instanceof ItemDisplay display ? display : null;
     }
 
     public void addItem(ItemStack item){
@@ -53,5 +61,10 @@ public class Pile {
 
     public ItemStack removeItem(){
         return items.removeLast();
+    }
+
+    public boolean isValid() {
+        ItemDisplay display = getDisplay();
+        return display != null && display.isValid();
     }
 }
