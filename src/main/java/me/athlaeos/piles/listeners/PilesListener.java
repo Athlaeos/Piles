@@ -3,6 +3,7 @@ package me.athlaeos.piles.listeners;
 import me.athlaeos.piles.PileRegistry;
 import me.athlaeos.piles.Piles;
 import me.athlaeos.piles.domain.Pile;
+import me.athlaeos.piles.piles.PileType;
 import me.athlaeos.piles.utils.Timer;
 import me.athlaeos.piles.utils.Utils;
 import org.bukkit.GameMode;
@@ -81,7 +82,7 @@ public class PilesListener implements Listener {
             if (e.getClickedBlock() == null) return;
             Pile pile = PileRegistry.fromBlock(e.getClickedBlock());
             if (pile == null){
-                if (e.getBlockFace() != BlockFace.UP) return; // must be sneaking to place pile
+                if (e.getBlockFace() != BlockFace.UP || e.getAction().toString().contains("LEFT_")) return; // must be sneaking and right-clicking to place pile
                 Block b = e.getClickedBlock().getRelative(BlockFace.UP);
                 if (!b.getRelative(BlockFace.DOWN).getType().isSolid()) return; // block below must be solid
                 ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
@@ -230,7 +231,11 @@ public class PilesListener implements Listener {
     }
 
     private boolean canPlace(Player player, Block against, BlockFace face){
-        BlockPlaceEvent event = new BlockPlaceEvent(against.getRelative(face), against.getState(), against, player.getInventory().getItemInMainHand(), player, true, EquipmentSlot.HAND);
+        ItemStack hand = player.getInventory().getItemInMainHand();
+        PileType type = PileRegistry.typeFromItem(hand);
+        if (type == null) return true;
+        if (PileRegistry.preventionPreConditions(player, against.getRelative(face).getLocation(), type, null, hand)) return false;
+        BlockPlaceEvent event = new BlockPlaceEvent(against.getRelative(face), against.getState(), against, hand, player, true, EquipmentSlot.HAND);
         Piles.getInstance().getServer().getPluginManager().callEvent(event);
         return !event.isCancelled();
     }

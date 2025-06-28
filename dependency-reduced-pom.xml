@@ -80,7 +80,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <testServerPath>C:\Users\Athlaeos\Desktop\Minecraft Servers\1.21.3\plugins</testServerPath>
+    <testServerPath>C:\Users\Athlaeos\Desktop\Minecraft Servers\1.21.4\plugins</testServerPath>
     <javaVersion>17</javaVersion>
     <spigotVersion>1.20.1</spigotVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

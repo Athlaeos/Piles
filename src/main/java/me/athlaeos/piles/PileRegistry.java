@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import me.athlaeos.piles.adapters.GsonAdapter;
 import me.athlaeos.piles.adapters.ItemStackGSONAdapter;
-import me.athlaeos.piles.config.ConfigManager;
 import me.athlaeos.piles.domain.Pile;
 import me.athlaeos.piles.domain.PileQuantityCounter;
 import me.athlaeos.piles.piles.ComplexPile;
@@ -157,12 +156,16 @@ public class PileRegistry {
         return found < limit;
     }
 
+    public static boolean preventionPreConditions(Player by, Location l, PileType type, Pile pile, ItemStack item){
+        return l.getWorld() == null || (by != null && (!by.hasPermission("piles.place") || !withinPlacementLimit(by, false) || hasPlacementBlocked(by))) || type == null || Utils.isEmpty(item) || !type.acceptsItem(item) || !type.canPlace(l.getBlock());
+    }
+
     private static boolean placePile(Player by, ItemStack item, PileType type, Pile pile, Location l, float rotation){
         if (pile == null && (by == null || !by.isOp()) && !canPlace(l.getChunk())) {
             Utils.sendMessage(by, Piles.getPluginConfig().getString("message_pile_chunk_limit_reached", "").replace("%amount%", String.valueOf(Piles.getPluginConfig().getInt("chunk_pile_limit"))));
             return false;
         }
-        if (l.getWorld() == null || (by != null && (!by.hasPermission("piles.place") || !canPlacePiles(by, pile == null) || hasPlacementBlocked(by))) || !type.acceptsItem(item) || !type.canPlace(l.getBlock())) return false;
+        if (l.getWorld() == null || (by != null && (!by.hasPermission("piles.place") || !withinPlacementLimit(by, pile == null) || hasPlacementBlocked(by))) || type == null || Utils.isEmpty(item) || !type.acceptsItem(item) || !type.canPlace(l.getBlock())) return false;
         item = item.clone();
         item.setAmount(1);
         Pos pos = new Pos(l.getWorld().getName(), l.getBlockX(), l.getBlockY(), l.getBlockZ());
@@ -265,7 +268,7 @@ public class PileRegistry {
         return Math.max(0, def);
     }
 
-    public static boolean canPlacePiles(Player p, boolean sendWarning){
+    public static boolean withinPlacementLimit(Player p, boolean sendWarning){
         int limit = maxAllowedPiles(p);
         boolean allowed = p.isOp() || quantityCounter.getPileQuantities().getOrDefault(p.getUniqueId(), 0) <= limit;
         if (sendWarning && !allowed) Utils.sendMessage(p, Piles.getPluginConfig().getString("message_pile_limit_reached", "").replace("%amount%", String.valueOf(limit)));

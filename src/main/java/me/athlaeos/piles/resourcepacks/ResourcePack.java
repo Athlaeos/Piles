@@ -28,11 +28,11 @@ public class ResourcePack {
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_23, null, null);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_3, null, null);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_2, null, null);
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_1, null, null);
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22, null, null);
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_5, null, null);
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_4, null, null);
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_3, null, null);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_1, "https://github.com/user-attachments/files/18075765/Piles.zip", "fb88e63894c2d2e67109727d2278dbfb1a8655c8");
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22, "https://github.com/user-attachments/files/18075765/Piles.zip", "fb88e63894c2d2e67109727d2278dbfb1a8655c8");
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_5, "https://github.com/user-attachments/files/18075765/Piles.zip", "fb88e63894c2d2e67109727d2278dbfb1a8655c8");
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_4, "https://github.com/user-attachments/files/18075765/Piles.zip", "fb88e63894c2d2e67109727d2278dbfb1a8655c8");
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_3, defaultPackLink, defaultSha1);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_2, defaultPackLink, defaultSha1);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_1, defaultPackLink, defaultSha1);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21, defaultPackLink, defaultSha1);
