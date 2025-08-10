@@ -2,8 +2,11 @@ package me.athlaeos.piles.commands;
 
 import me.athlaeos.piles.PileRegistry;
 import me.athlaeos.piles.Piles;
+import me.athlaeos.piles.domain.MinecraftVersion;
 import me.athlaeos.piles.utils.Utils;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -121,7 +124,9 @@ public class CreatePileCommand implements Command{
             Sound.valueOf(sound.toUpperCase());
             return sound;
         } catch (IllegalArgumentException ignored) {
-            return null;
+            NamespacedKey key = NamespacedKey.fromString(sound);
+            if (key == null) return null;
+            return Registry.SOUNDS.get(key) == null ? null : sound;
         }
     }
 
@@ -168,7 +173,10 @@ public class CreatePileCommand implements Command{
                 case 9 -> "<takesound>";
                 default -> "what";
             }));
-            list.addAll(Arrays.stream(Sound.values()).map(Sound::toString).map(String::toLowerCase).toList());
+            for (Sound sound : Registry.SOUNDS){
+                NamespacedKey key = sound.getKey();
+                list.add(key.toString());
+            }
             return list;
         }
         if (args.length == 10) return List.of("<custom_model_datas_by_range_or_separated_by_commas>");

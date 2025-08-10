@@ -11,9 +11,9 @@
     <packaging>jar</packaging>
 
     <properties>
-        <spigotVersion>1.20.1</spigotVersion>
+        <spigotVersion>1.21</spigotVersion>
         <javaVersion>17</javaVersion>
-        <testServerPath>C:\Users\Athlaeos\Desktop\Minecraft Servers\1.21.4\plugins</testServerPath>
+        <testServerPath>C:\Users\Athlaeos\Desktop\Minecraft Servers\1.21.1\plugins</testServerPath>
         <shadedPackage>me.athlaeos.piles.shaded</shadedPackage>
 
         <!-- Do not change the following properties -->

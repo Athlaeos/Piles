@@ -1,7 +1,10 @@
 package me.athlaeos.piles.piles;
 
 import me.athlaeos.piles.Piles;
+import me.athlaeos.piles.domain.MinecraftVersion;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -38,9 +41,24 @@ public abstract class PileType {
     public Material getDisplayItem() { return displayItem; }
     public int[] getCustomModelData() { return customModelData; }
     public boolean isSolid() { return solid; }
-    public Sound getDestroySound() { return Sound.valueOf(destroySound); }
-    public Sound getPlacementSound() { return Sound.valueOf(placementSound); }
-    public Sound getTakeSound() { return Sound.valueOf(takeSound); }
+    public Sound getDestroySound() { return parse(destroySound); }
+    public Sound getPlacementSound() { return parse(placementSound); }
+    public Sound getTakeSound() {
+        return parse(takeSound);
+    }
+
+    @SuppressWarnings("all")
+    private Sound parse(String string){
+        Sound sound = null;
+        try {
+            sound = Sound.valueOf(string);
+        } catch (Throwable ignored){
+            NamespacedKey key = NamespacedKey.fromString(string);
+            if (key == null) return null;
+            sound = Registry.SOUNDS.get(key);
+        }
+        return sound;
+    }
 
     public abstract int priority();
 
