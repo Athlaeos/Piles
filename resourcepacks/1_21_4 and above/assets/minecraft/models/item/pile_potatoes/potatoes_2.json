@@ -1,0 +1,36 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "produce/potato"
+	},
+	"elements": [
+		{
+			"name": "potato",
+			"from": [4, 0, 4],
+			"to": [7, 3, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15.5, 1.5, 14.5]},
+			"faces": {
+				"north": {"uv": [5, 3, 8, 6], "texture": "#1"},
+				"east": {"uv": [0, 0, 5, 3], "texture": "#1"},
+				"south": {"uv": [5, 3, 8, 6], "texture": "#1"},
+				"west": {"uv": [0, 0, 5, 3], "texture": "#1"},
+				"up": {"uv": [5, 6, 0, 3], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [10, 0, 5, 3], "rotation": 270, "texture": "#1"}
+			}
+		},
+		{
+			"name": "potato",
+			"from": [7.46719, 0, 9.29402],
+			"to": [10.46719, 3, 14.29402],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [15.5, 1.5, 14.5]},
+			"faces": {
+				"north": {"uv": [5, 3, 8, 6], "texture": "#1"},
+				"east": {"uv": [0, 0, 5, 3], "texture": "#1"},
+				"south": {"uv": [5, 3, 8, 6], "texture": "#1"},
+				"west": {"uv": [0, 0, 5, 3], "texture": "#1"},
+				"up": {"uv": [5, 6, 0, 3], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [10, 0, 5, 3], "rotation": 270, "texture": "#1"}
+			}
+		}
+	]
+}

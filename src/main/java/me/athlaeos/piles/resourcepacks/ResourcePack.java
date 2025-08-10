@@ -19,19 +19,26 @@ public class ResourcePack {
      */
     private static File pack;
     private static final Map<MinecraftVersion, ResourcePackDetails> resourcePacks = new HashMap<>();
-    private static final String defaultPackLink = "https://github.com/user-attachments/files/17712809/Piles.zip";
-    private static final String defaultSha1 = "2bdeb7005e3bad3f9b801da983da7e2ef1fcdae2";
+    private static final String defaultPackLink = "https://github.com/user-attachments/files/21706035/Piles_1.21.3-.zip";
+    private static final String defaultSha1 = "39d0514cd2c966fcf53571432c81af3d8bc3b42c";
+    private static final String modernPackLink = "https://github.com/user-attachments/files/21706037/Piles_1.21.4%2B.zip";
+    private static final String modernPackSha1 = "3c7b2c9b64c1ab3438e65b0ce52b062dbcd03812";
     static {
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_26, null, null);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_25, null, null);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_24, null, null);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_23, null, null);
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_3, null, null);
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_2, null, null);
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_1, "https://github.com/user-attachments/files/18075765/Piles.zip", "fb88e63894c2d2e67109727d2278dbfb1a8655c8");
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22, "https://github.com/user-attachments/files/18075765/Piles.zip", "fb88e63894c2d2e67109727d2278dbfb1a8655c8");
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_5, "https://github.com/user-attachments/files/18075765/Piles.zip", "fb88e63894c2d2e67109727d2278dbfb1a8655c8");
-        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_4, "https://github.com/user-attachments/files/18075765/Piles.zip", "fb88e63894c2d2e67109727d2278dbfb1a8655c8");
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_3, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_2, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22_1, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_22, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_10, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_9, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_8, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_7, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_6, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_5, modernPackLink, modernPackSha1);
+        mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_4, modernPackLink, modernPackSha1);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_3, defaultPackLink, defaultSha1);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_2, defaultPackLink, defaultSha1);
         mapResourcePackDetails(MinecraftVersion.MINECRAFT_1_21_1, defaultPackLink, defaultSha1);

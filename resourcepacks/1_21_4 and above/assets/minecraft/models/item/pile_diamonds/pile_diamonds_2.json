@@ -1,0 +1,67 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "gems/diamond_3",
+		"1": "gems/diamond_2",
+		"particle": "gems/diamond_3"
+	},
+	"elements": [
+		{
+			"name": "alt 2",
+			"from": [10, 0, 5],
+			"to": [12, 2, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 0, 5]},
+			"faces": {
+				"north": {"uv": [4, 2, 6, 4], "texture": "#1"},
+				"east": {"uv": [0, 2, 2, 4], "texture": "#1"},
+				"south": {"uv": [2, 0, 4, 2], "texture": "#1"},
+				"west": {"uv": [2, 4, 4, 6], "texture": "#1"},
+				"up": {"uv": [4, 4, 2, 2], "texture": "#1"},
+				"down": {"uv": [4, 6, 2, 8], "texture": "#1"}
+			}
+		},
+		{
+			"name": "alt 3",
+			"from": [3, 0, 8],
+			"to": [6, 2, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 2], "texture": "#0"},
+				"east": {"uv": [6, 3, 8, 5], "texture": "#0"},
+				"south": {"uv": [0, 2, 3, 4], "texture": "#0"},
+				"west": {"uv": [6, 5, 8, 7], "texture": "#0"},
+				"up": {"uv": [6, 2, 3, 0], "texture": "#0"},
+				"down": {"uv": [6, 2, 3, 4], "texture": "#0"}
+			}
+		},
+		{
+			"from": [3, 0, 8],
+			"to": [5, 3, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 4, 2, 7], "texture": "#0"},
+				"east": {"uv": [2, 4, 4, 7], "texture": "#0"},
+				"south": {"uv": [4, 4, 6, 7], "texture": "#0"},
+				"west": {"uv": [6, 0, 8, 3], "texture": "#0"},
+				"up": {"uv": [2, 9, 0, 7], "texture": "#0"},
+				"down": {"uv": [4, 7, 2, 9], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "Gem 3",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				0,
+				{
+					"name": "alt 3",
+					"origin": [7, 0, 7],
+					"color": 0,
+					"children": [1, 2]
+				}
+			]
+		}
+	]
+}

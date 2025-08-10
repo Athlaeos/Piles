@@ -1,0 +1,180 @@
+{
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/emerald"
+        },
+        "entries": [
+            {
+                "threshold": 1882600,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_1"
+                }
+            },
+            {
+                "threshold": 1882601,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_2"
+                }
+            },
+            {
+                "threshold": 1882602,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_3"
+                }
+            },
+            {
+                "threshold": 1882603,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_4"
+                }
+            },
+            {
+                "threshold": 1882604,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_5"
+                }
+            },
+            {
+                "threshold": 1882605,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_6"
+                }
+            },
+            {
+                "threshold": 1882606,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_7"
+                }
+            },
+            {
+                "threshold": 1882607,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_8"
+                }
+            },
+            {
+                "threshold": 1882608,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_9"
+                }
+            },
+            {
+                "threshold": 1882609,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_10"
+                }
+            },
+            {
+                "threshold": 1882610,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_11"
+                }
+            },
+            {
+                "threshold": 1882611,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_12"
+                }
+            },
+            {
+                "threshold": 1882612,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_13"
+                }
+            },
+            {
+                "threshold": 1882613,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_14"
+                }
+            },
+            {
+                "threshold": 1882614,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_15"
+                }
+            },
+            {
+                "threshold": 1882615,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_16"
+                }
+            },
+            {
+                "threshold": 1882616,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_17"
+                }
+            },
+            {
+                "threshold": 1882617,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_18"
+                }
+            },
+            {
+                "threshold": 1882618,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_19"
+                }
+            },
+            {
+                "threshold": 1882619,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_20"
+                }
+            },
+            {
+                "threshold": 1882620,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_21"
+                }
+            },
+            {
+                "threshold": 1882621,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_22"
+                }
+            },
+            {
+                "threshold": 1882622,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_23"
+                }
+            },
+            {
+                "threshold": 1882623,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_emeralds/pile_emeralds_24"
+                }
+            }
+        ]
+    }
+}

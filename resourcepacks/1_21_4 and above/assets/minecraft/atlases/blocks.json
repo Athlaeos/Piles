@@ -1,0 +1,74 @@
+{
+  "sources": [
+    {
+      "type": "directory",
+      "source": "ingots",
+      "prefix": "ingots/"
+    },
+    {
+      "type": "directory",
+      "source": "gems",
+      "prefix": "gems/"
+    },
+    {
+      "type": "directory",
+      "source": "sticks",
+      "prefix": "sticks/"
+    },
+    {
+      "type": "directory",
+      "source": "heaps",
+      "prefix": "heaps/"
+    },
+    {
+      "type": "directory",
+      "source": "stones",
+      "prefix": "stones/"
+    },
+    {
+      "type": "directory",
+      "source": "bones",
+      "prefix": "bones/"
+    },
+    {
+      "type": "directory",
+      "source": "logs",
+      "prefix": "logs/"
+    },
+    {
+      "type": "directory",
+      "source": "potions",
+      "prefix": "potions/"
+    },
+    {
+      "type": "directory",
+      "source": "coal",
+      "prefix": "coal/"
+    },
+    {
+      "type": "directory",
+      "source": "produce",
+      "prefix": "produce/"
+    },
+    {
+      "type": "directory",
+      "source": "books",
+      "prefix": "books/"
+    },
+    {
+      "type": "directory",
+      "source": "totems",
+      "prefix": "totems/"
+    },
+    {
+      "type": "directory",
+      "source": "ender",
+      "prefix": "ender/"
+    },
+    {
+      "type": "directory",
+      "source": "jars",
+      "prefix": "jars/"
+    }
+  ]
+}

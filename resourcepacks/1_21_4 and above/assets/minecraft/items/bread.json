@@ -1,0 +1,33 @@
+{
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/bread"
+        },
+        "entries": [
+            {
+                "threshold": 1882600,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_bread/bread_1"
+                }
+            },
+            {
+                "threshold": 1882601,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_bread/bread_2"
+                }
+            },
+            {
+                "threshold": 1882602,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_bread/bread_3"
+                }
+            }
+        ]
+    }
+}

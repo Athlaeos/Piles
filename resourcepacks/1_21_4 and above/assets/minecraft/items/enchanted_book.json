@@ -1,0 +1,75 @@
+{
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/enchanted_book"
+        },
+        "entries": [
+            {
+                "threshold": 1882600,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_1"
+                }
+            },
+            {
+                "threshold": 1882601,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_2"
+                }
+            },
+            {
+                "threshold": 1882602,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_3"
+                }
+            },
+            {
+                "threshold": 1882603,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_4"
+                }
+            },
+            {
+                "threshold": 1882604,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_5"
+                }
+            },
+            {
+                "threshold": 1882605,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_6"
+                }
+            },
+            {
+                "threshold": 1882606,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_7"
+                }
+            },
+            {
+                "threshold": 1882607,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_8"
+                }
+            },
+            {
+                "threshold": 1882608,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_books/enchanted_9"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,76 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "sticks/stick_3d",
+		"particle": "sticks/stick_3d"
+	},
+	"elements": [
+		{
+			"from": [1.05635, 0, 1],
+			"to": [17.05635, 1, 2],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [1, 0.15, 1]},
+			"faces": {
+				"north": {"uv": [0, 0.5, 8, 1], "texture": "#0"},
+				"east": {"uv": [1, 1, 1.5, 1.5], "texture": "#0"},
+				"south": {"uv": [0, 0, 8, 0.5], "texture": "#0"},
+				"west": {"uv": [1, 1.5, 1.5, 2], "texture": "#0"},
+				"up": {"uv": [0.5, 9, 0, 1], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [1, 1, 0.5, 9], "rotation": 270, "texture": "#0"}
+			}
+		},
+		{
+			"from": [8.35355, 0.1, 8.55355],
+			"to": [10.35355, 0.9, 9.35355],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [1, 0.15, 1]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 0.4], "texture": "#0"},
+				"east": {"uv": [0, 0, 0.4, 0.4], "texture": "#0"},
+				"south": {"uv": [0, 0, 1, 0.4], "texture": "#0"},
+				"west": {"uv": [0, 0, 0.4, 0.4], "texture": "#0"},
+				"up": {"uv": [0, 0, 0.4, 1], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [0, 0, 0.4, 1], "rotation": 270, "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 0, 3.05635],
+			"to": [1, 1, 19.05635],
+			"rotation": {"angle": 45, "axis": "y", "origin": [1, 0.15, 3]},
+			"faces": {
+				"north": {"uv": [1, 1.5, 1.5, 2], "texture": "#0"},
+				"east": {"uv": [0, 0.5, 8, 1], "texture": "#0"},
+				"south": {"uv": [1, 1, 1.5, 1.5], "texture": "#0"},
+				"west": {"uv": [0, 0, 8, 0.5], "texture": "#0"},
+				"up": {"uv": [0.5, 9, 0, 1], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [1, 1, 0.5, 9], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"from": [7.14645, 0.1, 10.35355],
+			"to": [7.94645, 0.9, 12.35355],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15.5, 0.15, 3]},
+			"faces": {
+				"north": {"uv": [0, 0, 0.4, 0.4], "texture": "#0"},
+				"east": {"uv": [0, 0, 1, 0.4], "texture": "#0"},
+				"south": {"uv": [0, 0, 0.4, 0.4], "texture": "#0"},
+				"west": {"uv": [0, 0, 1, 0.4], "texture": "#0"},
+				"up": {"uv": [0, 0, 0.4, 1], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [0, 0, 0.4, 1], "rotation": 180, "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "stick",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1]
+		},
+		{
+			"name": "stick",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [2, 3]
+		}
+	]
+}

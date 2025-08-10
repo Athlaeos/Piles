@@ -1,0 +1,40 @@
+{
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/dragon_breath"
+        },
+        "entries": [
+            {
+                "threshold": 1882600,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_potions/dragon_breath_1"
+                }
+            },
+            {
+                "threshold": 1882601,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_potions/dragon_breath_2"
+                }
+            },
+            {
+                "threshold": 1882602,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_potions/dragon_breath_3"
+                }
+            },
+            {
+                "threshold": 1882603,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_potions/dragon_breath_4"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,460 @@
+{
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/iron_nugget"
+        },
+        "entries": [
+            {
+                "threshold": 1882600,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_1"
+                }
+            },
+            {
+                "threshold": 1882601,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_2"
+                }
+            },
+            {
+                "threshold": 1882602,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_3"
+                }
+            },
+            {
+                "threshold": 1882603,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_4"
+                }
+            },
+            {
+                "threshold": 1882604,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_5"
+                }
+            },
+            {
+                "threshold": 1882605,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_6"
+                }
+            },
+            {
+                "threshold": 1882606,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_7"
+                }
+            },
+            {
+                "threshold": 1882607,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_8"
+                }
+            },
+            {
+                "threshold": 1882608,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_9"
+                }
+            },
+            {
+                "threshold": 1882609,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_10"
+                }
+            },
+            {
+                "threshold": 1882610,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_11"
+                }
+            },
+            {
+                "threshold": 1882611,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_12"
+                }
+            },
+            {
+                "threshold": 1882612,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_13"
+                }
+            },
+            {
+                "threshold": 1882613,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_14"
+                }
+            },
+            {
+                "threshold": 1882614,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_15"
+                }
+            },
+            {
+                "threshold": 1882615,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_16"
+                }
+            },
+            {
+                "threshold": 1882616,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_17"
+                }
+            },
+            {
+                "threshold": 1882617,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_18"
+                }
+            },
+            {
+                "threshold": 1882618,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_19"
+                }
+            },
+            {
+                "threshold": 1882619,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_20"
+                }
+            },
+            {
+                "threshold": 1882620,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_21"
+                }
+            },
+            {
+                "threshold": 1882621,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_22"
+                }
+            },
+            {
+                "threshold": 1882622,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_23"
+                }
+            },
+            {
+                "threshold": 1882623,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_24"
+                }
+            },
+            {
+                "threshold": 1882624,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_25"
+                }
+            },
+            {
+                "threshold": 1882625,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_26"
+                }
+            },
+            {
+                "threshold": 1882626,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_27"
+                }
+            },
+            {
+                "threshold": 1882627,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_28"
+                }
+            },
+            {
+                "threshold": 1882628,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_29"
+                }
+            },
+            {
+                "threshold": 1882629,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_30"
+                }
+            },
+            {
+                "threshold": 1882630,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_31"
+                }
+            },
+            {
+                "threshold": 1882631,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_32"
+                }
+            },
+            {
+                "threshold": 1882632,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_33"
+                }
+            },
+            {
+                "threshold": 1882633,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_34"
+                }
+            },
+            {
+                "threshold": 1882634,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_35"
+                }
+            },
+            {
+                "threshold": 1882635,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_36"
+                }
+            },
+            {
+                "threshold": 1882636,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_37"
+                }
+            },
+            {
+                "threshold": 1882637,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_38"
+                }
+            },
+            {
+                "threshold": 1882638,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_39"
+                }
+            },
+            {
+                "threshold": 1882639,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_40"
+                }
+            },
+            {
+                "threshold": 1882640,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_41"
+                }
+            },
+            {
+                "threshold": 1882641,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_42"
+                }
+            },
+            {
+                "threshold": 1882642,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_43"
+                }
+            },
+            {
+                "threshold": 1882643,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_44"
+                }
+            },
+            {
+                "threshold": 1882644,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_45"
+                }
+            },
+            {
+                "threshold": 1882645,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_46"
+                }
+            },
+            {
+                "threshold": 1882646,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_47"
+                }
+            },
+            {
+                "threshold": 1882647,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_48"
+                }
+            },
+            {
+                "threshold": 1882648,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_49"
+                }
+            },
+            {
+                "threshold": 1882649,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_50"
+                }
+            },
+            {
+                "threshold": 1882650,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_51"
+                }
+            },
+            {
+                "threshold": 1882651,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_52"
+                }
+            },
+            {
+                "threshold": 1882652,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_53"
+                }
+            },
+            {
+                "threshold": 1882653,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_54"
+                }
+            },
+            {
+                "threshold": 1882654,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_55"
+                }
+            },
+            {
+                "threshold": 1882655,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_56"
+                }
+            },
+            {
+                "threshold": 1882656,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_57"
+                }
+            },
+            {
+                "threshold": 1882657,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_58"
+                }
+            },
+            {
+                "threshold": 1882658,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_59"
+                }
+            },
+            {
+                "threshold": 1882659,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_60"
+                }
+            },
+            {
+                "threshold": 1882660,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_61"
+                }
+            },
+            {
+                "threshold": 1882661,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_62"
+                }
+            },
+            {
+                "threshold": 1882662,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_63"
+                }
+            },
+            {
+                "threshold": 1882663,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_iron_coins/coin_pile_64"
+                }
+            }
+        ]
+    }
+}

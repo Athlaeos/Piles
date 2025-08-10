@@ -1,0 +1,152 @@
+{
+    "model": {
+        "type": "range_dispatch",
+        "property": "custom_model_data",
+        "fallback": {
+            "type": "model",
+            "model": "item/coal"
+        },
+        "entries": [
+            {
+                "threshold": 1882600,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_1"
+                }
+            },
+            {
+                "threshold": 1882601,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_2"
+                }
+            },
+            {
+                "threshold": 1882602,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_3"
+                }
+            },
+            {
+                "threshold": 1882603,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_4"
+                }
+            },
+            {
+                "threshold": 1882604,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_5"
+                }
+            },
+            {
+                "threshold": 1882605,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_6"
+                }
+            },
+            {
+                "threshold": 1882606,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_7"
+                }
+            },
+            {
+                "threshold": 1882607,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_8"
+                }
+            },
+            {
+                "threshold": 1882608,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_9"
+                }
+            },
+            {
+                "threshold": 1882609,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_10"
+                }
+            },
+            {
+                "threshold": 1882610,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_11"
+                }
+            },
+            {
+                "threshold": 1882611,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_12"
+                }
+            },
+            {
+                "threshold": 1882612,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_13"
+                }
+            },
+            {
+                "threshold": 1882613,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_14"
+                }
+            },
+            {
+                "threshold": 1882614,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_15"
+                }
+            },
+            {
+                "threshold": 1882615,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_16"
+                }
+            },
+            {
+                "threshold": 1882616,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_17"
+                }
+            },
+            {
+                "threshold": 1882617,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_18"
+                }
+            },
+            {
+                "threshold": 1882618,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_19"
+                }
+            },
+            {
+                "threshold": 1882619,
+                "model": {
+                    "type": "model",
+                    "model": "item/pile_coal/coal_20"
+                }
+            }
+        ]
+    }
+}
